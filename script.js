@@ -37,7 +37,7 @@ BackPropertyBase	#1D1C1D
 //通常行の文字色
 ForePropertyText	#E6E6E6
 //選択アイテムの背景色（ツリービューも反応している）
-//üliBackPropertySelection	#505050 ツリーで選択状態の項目のバックカラー　　　
+//BackPropertySelection	#505050 ツリーで選択状態の項目のバックカラー　　　
 BackPropertySelection	#444344
 //選択アイテムの文字色（ツリービューも反応している）
 ForePropertySelection	#FEFCF2
@@ -54,6 +54,7 @@ BackMasterMenuBase	#282a2c
 ForeMasterMenuText	#a2a9b0
 //マスターメニューの選択カーソル？
 ForeMasterMenuSelection	#0052A6
+
 
 //Bakinフォームのテロップ部　
 //SBEditorFormStatusBackColor	#201f20
@@ -103,6 +104,8 @@ TelopColor	#D8D8D8
 //テキストボックスの背景（テキスト入力ができる場所のボックスの背景色）
 SBTextBoxBackColor	#1D1C1D
 
+
+
 //グリッドビューの余白部分の色 
 PropertyBackColor	#100f10
 //キャプションバーグレー見出しの背景色
@@ -149,7 +152,204 @@ MenuCheckBackColor	#3d3c3d
 //透明部分市松画像と掛け算する色のラベルを用意しました。　RGBが全て同じ値（グレー系）を設定してください。白で変化なしになります。
 TransparentTileAdjustColor	#2d2d2d`;
 
-    // Map of color entry names to image paths
+    const lines = originalContent.split('\n');
+    const data = [];
+
+    lines.forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('//') || trimmed === '') {
+            data.push({ type: 'comment', text: line });
+        } else {
+            const parts = line.split('#');
+            if (parts.length >= 2) {
+                const prefixRaw = parts[0];
+                const name = prefixRaw.trim();
+                const separator = prefixRaw.slice(name.length);
+                const colorPart = parts.slice(1).join('#').trim();
+                const isUpperCase = colorPart === colorPart.toUpperCase();
+                data.push({ type: 'entry', name, separator, color: colorPart, isUpperCase: isUpperCase });
+            } else {
+                data.push({ type: 'comment', text: line });
+            }
+        }
+    });
+
+    // Store original colors
+    data.forEach(item => {
+        if (item.type === 'entry') {
+            item.originalColor = item.color;
+        }
+    });
+
+    const nameToItem = {};
+    data.forEach(item => {
+        if (item.type === 'entry') {
+            nameToItem[item.name] = item;
+        }
+    });
+
+    const groups = [
+        { label: 'White Resources', baseName: 'UserRes', associates: ['SysRes', 'DlcRes', 'SelectedUserRes', 'SelectedSysRes', 'SelectedDlcRes'] },
+        { label: 'Light Text', baseName: 'ForeText', associates: ['TelopColor', 'EventDescriptionTextColor', 'ForePropertyText', 'SBEditorFormCaptionForeColor', 'SBCaptionBarSeachBoxForeColor', 'CaptionImageText', 'ForePropertyGroup', 'SBCaptionBarForeColor'] },
+        { label: 'Dark Background', baseName: 'Back', associates: ['BackMasterMenuBase', 'SBEditorFormStatusBackColor', 'SBEditorFormCaptionBackColor', 'SBTextBoxBackColor', 'ListViewBackColor', 'ToolStripBackColor', 'ListViewEvenRowBackColor', 'ListViewOddRowBackColor', 'OnButton', 'EventCommandPanelColor', 'EventStartEndPanelColor', 'BackPropertyBase', 'SBCaptionBarBackColor', 'MenuCheckBackColor', 'TransparentTileAdjustColor', 'PropertyBackColor', 'BackPropertyHideSelection'] },
+        { label: 'Medium Background', baseName: 'PressedButton', associates: ['PropertyColumnHeaderBackColor', 'ListViewColumnHeaderBackColor', 'BackGraphArea', 'SplitterColor', 'BorderButton', 'PropertyReadOnlyBackColor', 'SBCaptionBarSeachBoxBackColor', 'BackPropertySelection', 'BackPropertyGroup'] },
+        { label: 'Very Dark Background', baseName: 'FlowchartNormalBackColor', associates: ['FlowchartCommonBackColor', 'PropertyGridCellBorderColor'] },
+        { label: 'Disabled Text', baseName: 'DisableText', associates: ['PropertyReadOnlyForeColor'] },
+        { label: 'Accent Blue', baseName: 'PanelSelectFrameColor', associates: ['ForeMasterMenuSelection', 'BattlePlayerMark'] },
+        { label: 'Accent Red', baseName: 'DropTargetLine', associates: ['BattleEnemyMark'] },
+        { label: 'Other Light', baseName: 'HoverText', associates: ['MultiplyGrayScaleImage', 'ForePropertySelection'] },
+        { label: 'Muted Text', baseName: 'ForeMasterMenuText', associates: ['ForePropertyHideSelection'] },
+        { label: 'Medium Gray', baseName: 'CaptionNameBGColor', associates: ['MultiplyButton'] }
+    ];
+
+    // Compute offsets for groups
+    groups.forEach(group => {
+        group.offsets = {};
+        const baseOriginalRgb = hexToRgb(nameToItem[group.baseName].originalColor);
+        group.associates.forEach(assoc => {
+            const assocOriginalRgb = hexToRgb(nameToItem[assoc].originalColor);
+            group.offsets[assoc] = {
+                r: assocOriginalRgb.r - baseOriginalRgb.r,
+                g: assocOriginalRgb.g - baseOriginalRgb.g,
+                b: assocOriginalRgb.b - baseOriginalRgb.b
+            };
+        });
+    });
+
+    // Helper functions
+    function hexToRgb(hex) {
+        return {
+            r: parseInt(hex.substr(0, 2), 16),
+            g: parseInt(hex.substr(2, 2), 16),
+            b: parseInt(hex.substr(4, 2), 16)
+        };
+    }
+
+    function rgbToHex(rgb, upperCase) {
+        let hex = ((rgb.r << 16) | (rgb.g << 8) | rgb.b).toString(16).padStart(6, '0');
+        return upperCase ? hex.toUpperCase() : hex.toLowerCase();
+    }
+
+    function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+    }
+
+    function invertHex(hex, isUpperCase) {
+        const rgb = hexToRgb(hex);
+        const invertedRgb = {
+            r: 255 - rgb.r,
+            g: 255 - rgb.g,
+            b: 255 - rgb.b
+        };
+        return rgbToHex(invertedRgb, isUpperCase);
+    }
+
+    function updateEntryUI(item) {
+        item.entrySwatch.style.backgroundColor = '#' + item.color;
+        item.entryHex.textContent = '#' + item.color;
+    }
+
+    function setGroupColor(group, newHex) {
+        const baseItem = nameToItem[group.baseName];
+        baseItem.color = newHex;
+        updateEntryUI(baseItem);
+
+        const newRgb = hexToRgb(newHex);
+        group.associates.forEach(assoc => {
+            const off = group.offsets[assoc];
+            const assocRgb = {
+                r: clamp(newRgb.r + off.r, 0, 255),
+                g: clamp(newRgb.g + off.g, 0, 255),
+                b: clamp(newRgb.b + off.b, 0, 255)
+            };
+            const assocHex = rgbToHex(assocRgb, nameToItem[assoc].isUpperCase);
+            nameToItem[assoc].color = assocHex;
+            updateEntryUI(nameToItem[assoc]);
+        });
+
+        group.batchSwatch.style.backgroundColor = '#' + newHex;
+        group.batchHex.textContent = '#' + newHex;
+    }
+
+    // Create batch UI
+    const batchesDiv = document.getElementById('batches');
+    groups.forEach(group => {
+        const div = document.createElement('div');
+        div.className = 'batch-line';
+
+        const label = document.createElement('span');
+        label.className = 'batch-label';
+        label.textContent = group.label + ':';
+
+        const swatch = document.createElement('button');
+        swatch.className = 'swatch';
+        swatch.style.backgroundColor = '#' + nameToItem[group.baseName].color;
+
+        const hex = document.createElement('span');
+        hex.className = 'hex';
+        hex.textContent = '#' + nameToItem[group.baseName].color;
+
+        const input = document.createElement('input');
+        input.type = 'color';
+        input.value = '#' + nameToItem[group.baseName].color;
+        input.style.display = 'none';
+
+        input.addEventListener('input', (e) => {
+            let newColor = e.target.value.substring(1);
+            newColor = nameToItem[group.baseName].isUpperCase ? newColor.toUpperCase() : newColor.toLowerCase();
+            setGroupColor(group, newColor);
+        });
+
+        swatch.addEventListener('click', () => input.click());
+
+        div.appendChild(label);
+        div.appendChild(swatch);
+        div.appendChild(hex);
+        div.appendChild(input);
+
+        group.batchSwatch = swatch;
+        group.batchHex = hex;
+
+        batchesDiv.appendChild(div);
+    });
+
+    // Preset handler
+    const presetSelect = document.getElementById('presetSelect');
+    presetSelect.addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (val === 'original') {
+            data.forEach(item => {
+                if (item.type === 'entry') {
+                    item.color = item.originalColor;
+                    if (item.entrySwatch) {
+                        updateEntryUI(item);
+                    }
+                }
+            });
+            groups.forEach(group => {
+                const col = nameToItem[group.baseName].color;
+                group.batchSwatch.style.backgroundColor = '#' + col;
+                group.batchHex.textContent = '#' + col;
+            });
+        } else if (val === 'light') {
+            groups.forEach(group => {
+                const baseItem = nameToItem[group.baseName];
+                const orig = baseItem.originalColor;
+                const invHex = invertHex(orig, baseItem.isUpperCase);
+                setGroupColor(group, invHex);
+            });
+        } else if (val === 'random') {
+            groups.forEach(group => {
+                const baseItem = nameToItem[group.baseName];
+                let randomColor = Math.floor(Math.random() * 16777216).toString(16).padStart(6, '0');
+                randomColor = baseItem.isUpperCase ? randomColor.toUpperCase() : randomColor.toLowerCase();
+                setGroupColor(group, randomColor);
+            });
+        }
+        e.target.value = ''; // Reset select
+    });
+
+    // Map of color entry names to image paths (unchanged from previous)
     const imageMap = {
         'UserRes': 'images/UserRes.png',
         'SysRes': 'images/SysRes.png',
@@ -213,28 +413,6 @@ TransparentTileAdjustColor	#2d2d2d`;
         'TransparentTileAdjustColor': 'images/TransparentTileAdjustColor.png'
     };
 
-    const lines = originalContent.split('\n');
-    const data = [];
-
-    lines.forEach(line => {
-        const trimmed = line.trim();
-        if (trimmed.startsWith('//') || trimmed === '') {
-            data.push({ type: 'comment', text: line });
-        } else {
-            const parts = line.split('#');
-            if (parts.length >= 2) {
-                const prefixRaw = parts[0];
-                const name = prefixRaw.trim();
-                const separator = prefixRaw.slice(name.length);
-                const colorPart = parts.slice(1).join('#').trim();
-                const isUpperCase = colorPart === colorPart.toUpperCase();
-                data.push({ type: 'entry', name, separator, color: colorPart, isUpperCase: isUpperCase });
-            } else {
-                data.push({ type: 'comment', text: line });
-            }
-        }
-    });
-
     const editor = document.getElementById('editor');
     const preview = document.getElementById('preview');
     let entryCount = 0;
@@ -281,6 +459,8 @@ TransparentTileAdjustColor	#2d2d2d`;
             div.addEventListener('mouseleave', () => {
                 preview.src = '';
             });
+            item.entrySwatch = swatch;
+            item.entryHex = spanHex;
             entryCount++;
         }
         editor.appendChild(div);

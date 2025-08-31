@@ -8,7 +8,18 @@
 </head>
 <body>
     <h1>ToolColorTable Editor</h1>
-    <p>Edit the colors below using the color pickers. Click "Export" to download the modified file.</p>
+    <p>Edit the colors below using the color pickers. Use batch editors for grouped changes. Click "Export" to download the modified file.</p>
+    <div id="presets">
+        <label for="presetSelect">Select Preset Theme:</label>
+        <select id="presetSelect">
+            <option value="">-- Select --</option>
+            <option value="original">Original Dark</option>
+            <option value="light">Light Theme</option>
+            <option value="random">Random Colors</option>
+        </select>
+    </div>
+    <h2>Batch Editors</h2>
+    <div id="batches"></div>
     <div class="container">
         <div id="editor"></div>
         <div id="preview-container">
