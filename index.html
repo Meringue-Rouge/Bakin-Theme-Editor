@@ -3,52 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolColorTable Editor</title>
+    <title>Bakin Theme Editor</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
 </head>
 <body>
     <header>
         <div class="header-container">
-            <h1 data-i18n="title">ToolColorTable Editor</h1>
+            <h1 data-i18n="title">Bakin Theme Editor</h1>
             <button id="languageToggle" data-i18n="toggleLanguage">日本語</button>
         </div>
     </header>
-    <p data-i18n="description">Edit the colors below using the color pickers. Use batch editors for grouped changes. Click "Export" to download the modified file.</p>
-    <div id="presets">
+
+    <section id="description">
+        <p data-i18n="description">Edit the colors below using the color pickers. Use batch editors for grouped changes. Click "Export" to download the modified file.</p>
+    </section>
+
+    <section id="presets">
         <label for="presetSelect" data-i18n="presetLabel">Select Preset Theme:</label>
         <select id="presetSelect">
-            <option value="">-- Select --</option>
+            <option value="" disabled selected>-- Select --</option>
             <option value="original" data-i18n="presetOriginal">Original Dark</option>
             <option value="light" data-i18n="presetLight">Light Theme</option>
-            <option value="ms_office_dark" data-i18n="presetMSOfficeDark">MS Office Dark</option>
-            <option value="ms_office_light" data-i18n="presetMSOfficeLight">MS Office Light</option>
-            <option value="vscode_dark" data-i18n="presetVSCodeDark">VS Code Dark</option>
-            <option value="vscode_light" data-i18n="presetVSCodeLight">VS Code Light</option>
-            <option value="solarized_dark" data-i18n="presetSolarizedDark">Solarized Dark</option>
-            <option value="solarized_light" data-i18n="presetSolarizedLight">Solarized Light</option>
+            <option value="msOfficeDark" data-i18n="presetMSOfficeDark">MS Office Dark</option>
+            <option value="msOfficeLight" data-i18n="presetMSOfficeLight">MS Office Light</option>
+            <option value="vsCodeDark" data-i18n="presetVSCodeDark">VS Code Dark</option>
+            <option value="vsCodeLight" data-i18n="presetVSCodeLight">VS Code Light</option>
+            <option value="solarizedDark" data-i18n="presetSolarizedDark">Solarized Dark</option>
+            <option value="solarizedLight" data-i18n="presetSolarizedLight">Solarized Light</option>
             <option value="dracula" data-i18n="presetDracula">Dracula</option>
             <option value="nord" data-i18n="presetNord">Nord</option>
-            <option value="gruvbox_dark" data-i18n="presetGruvboxDark">Gruvbox Dark</option>
+            <option value="gruvboxDark" data-i18n="presetGruvboxDark">Gruvbox Dark</option>
             <option value="monokai" data-i18n="presetMonokai">Monokai</option>
-            <option value="one_dark" data-i18n="presetOneDark">One Dark</option>
-            <option value="windows_95" data-i18n="presetWindows95">Windows 95</option>
+            <option value="oneDark" data-i18n="presetOneDark">One Dark</option>
+            <option value="windows95" data-i18n="presetWindows95">Windows 95</option>
             <option value="cyberpunk" data-i18n="presetCyberpunk">Cyberpunk</option>
             <option value="random" data-i18n="presetRandom">Random Colors</option>
         </select>
-    </div>
+    </section>
+
     <h2 data-i18n="batchEditors">Batch Editors</h2>
-    <div id="batches"></div>
+    <section id="batches"></section>
+
     <div class="container">
-        <div id="editor"></div>
-        <div id="preview-container">
-            <img id="preview" src="" alt="Preview Image">
-        </div>
+        <section id="editor"></section>
+        <section id="preview-container">
+            <img id="preview" src="" alt="Preview">
+        </section>
     </div>
+
     <button id="export" data-i18n="export">Export File</button>
+
     <section id="install-instructions">
         <h2 data-i18n="installTitle">How to Install</h2>
-        <p data-i18n="installInstructions">To use the customized ToolColorTable, place the downloaded <code>ToolColorTable.txt</code> file into your <code>Program Files (x86)\Steam\steamapps\common\BAKIN\lib\sysresource</code> folder.</p>
+        <p data-i18n="installInstructions">To use the customized theme, place the downloaded <code>ToolColorTable.txt</code> file into your <code>Program Files (x86)\Steam\steamapps\common\BAKIN\lib\sysresource</code> folder. This overrides the dark theme, so make sure to make a backup of the file first.</p>
     </section>
-    <script src="script.js"></script>
+
+    <footer style="text-align: center; margin-top: 20px;">
+        <a href="https://meringue-rouge.github.io/">
+            <img src="logo.png" alt="Meringue Rouge Logo" style="max-width: 200px; height: auto; border-radius: 4px;">
+        </a>
+    </footer>
 </body>
 </html>
