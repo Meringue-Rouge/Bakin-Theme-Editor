@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             title: 'Bakin Theme Editor',
             toggleLanguage: '日本語',
-            description: 'Edit the colors below using the color pickers. Use batch editors for grouped changes. Click "Export" to download the modified file.',
+            description: 'Edit the colors below using the color pickers. Use batch editors for grouped changes. Click on preview elements or use "Export" to download the modified file.',
             presetLabel: 'Select Preset Theme:',
             presetOriginal: 'Original Dark',
             presetLight: 'Light Theme',
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ja: {
             title: 'Bakin テーマエディター',
             toggleLanguage: 'English',
-            description: '以下のカラーを使って色を編集してください。グループ編集にはバッチエディターを使用してください。「エクスポート」をクリックして、変更したファイルをダウンロードしてください。',
+            description: '以下のカラーを使って色を編集してください。バッチエディターを使用してグループ編集してください。プレビュー要素をクリックするか、「エクスポート」をクリックして変更したファイルをダウンロードしてください。',
             presetLabel: 'プリセットテーマを選択：',
             presetOriginal: 'オリジナルダーク',
             presetLight: 'ライトテーマ',
@@ -124,7 +124,8 @@ ForePropertyText	#E6E6E6
 BackPropertySelection	#444344
 //選択アイテムの文字色（ツリービューも反応している）
 ForePropertySelection	#FEFCF2
-//フォーカスが無いグリッドビューの選択アイテムの背景色（ツリービューは反応していない）
+//フォーカ聶
+ーカスが無いグリッドビューの選択アイテムの背景色（ツリービューは反応していない）
 BackPropertyHideSelection	#323132
 // フォーカスが無いグリッドビューの選択アイテムの文字色（ツリービューは反応していない）★★現在反応していない。これは修正？　★★
 ForePropertyHideSelection	#bEbCb2
@@ -393,6 +394,7 @@ TransparentTileAdjustColor	#2d2d2d`;
 
         group.batchSwatch = swatch;
         group.batchHex = hex;
+        group.input = input; // Store input for preview clicks
 
         batchesDiv.appendChild(div);
     });
@@ -471,7 +473,7 @@ TransparentTileAdjustColor	#2d2d2d`;
             'FlowchartNormalBackColor': 'FDF6E3',
             'DisableText': '93A1A1',
             'PanelSelectFrameColor': '268BD2',
-            'DropTargetLine': 'DC322F',
+            'Drop/targetLine': 'DC322F',
             'HoverText': '002B36',
             'ForeMasterMenuText': '93A1A1',
             'CaptionNameBGColor': '839496'
@@ -503,8 +505,8 @@ TransparentTileAdjustColor	#2d2d2d`;
             'CaptionNameBGColor': '434C5E'
         },
         'gruvbox_dark': {
-            'UserRes': 'EBDbb2',
-            'ForeText': 'EBDbb2',
+            'UserRes': 'EBDBB2',
+            'ForeText': 'EBDBB2',
             'Back': '3C3836',
             'PressedButton': '504945',
             'FlowchartNormalBackColor': '282828',
@@ -642,6 +644,12 @@ TransparentTileAdjustColor	#2d2d2d`;
                 spanHex.textContent = '#' + item.color;
                 swatch.style.backgroundColor = '#' + item.color;
                 updatePreview();
+                // Update batch UI if this entry is a baseName
+                const group = groups.find(g => g.baseName === item.name);
+                if (group) {
+                    group.batchSwatch.style.backgroundColor = '#' + item.color;
+                    group.batchHex.textContent = '#' + item.color;
+                }
             });
             swatch.addEventListener('click', () => {
                 input.click();
@@ -652,6 +660,7 @@ TransparentTileAdjustColor	#2d2d2d`;
             div.appendChild(input);
             item.entrySwatch = swatch;
             item.entryHex = spanHex;
+            item.input = input; // Store input for preview clicks
             entryCount++;
         }
         editor.appendChild(div);
@@ -665,6 +674,31 @@ TransparentTileAdjustColor	#2d2d2d`;
             }
         });
     }
+
+    // Handle preview clicks
+    const colorElements = document.querySelectorAll('#preview [data-color], #preview [data-foreground]');
+    colorElements.forEach(element => {
+        element.style.cursor = 'pointer';
+        element.addEventListener('click', () => {
+            const bgColorKey = element.getAttribute('data-color');
+            const fgColorKey = element.getAttribute('data-foreground');
+            const colorKey = bgColorKey || fgColorKey;
+
+            if (!colorKey) return;
+
+            // Find the group or entry for this color
+            let group = groups.find(g => g.baseName === colorKey || g.associates.includes(colorKey));
+            let item = nameToItem[colorKey];
+
+            if (group) {
+                // Trigger the group's color picker
+                group.input.click();
+            } else if (item) {
+                // Trigger the individual entry's color picker
+                item.input.click();
+            }
+        });
+    });
 
     // Initial update
     updatePreview();
