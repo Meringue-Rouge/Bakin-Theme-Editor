@@ -218,31 +218,31 @@ TransparentTileAdjustColor	#2d2d2d`;
 
     // Preset colors
     const presetColors = {
-        'blender_dark': {
+        'ms_office_dark': {
             'UserRes': 'FFFFFF',
-            'ForeText': 'D8D8D8',
-            'Back': '282828',
-            'PressedButton': '545454',
-            'FlowchartNormalBackColor': '282828',
-            'DisableText': '999999',
-            'PanelSelectFrameColor': '0052A6',
-            'DropTargetLine': 'FB0000',
-            'HoverText': 'FBFBFB',
-            'ForeMasterMenuText': 'A2A9B0',
-            'CaptionNameBGColor': '808080'
+            'ForeText': 'CCCCCC',
+            'Back': '1E1E1E',
+            'PressedButton': '2D2D2D',
+            'FlowchartNormalBackColor': '121212',
+            'DisableText': '808080',
+            'PanelSelectFrameColor': '0078D4',
+            'DropTargetLine': 'D13438',
+            'HoverText': 'FFFFFF',
+            'ForeMasterMenuText': 'A0A0A0',
+            'CaptionNameBGColor': '404040'
         },
-        'blender_light': {
+        'ms_office_light': {
             'UserRes': '000000',
-            'ForeText': '282828',
-            'Back': 'F0F0F0',
-            'PressedButton': 'D0D0D0',
-            'FlowchartNormalBackColor': 'E0E0E0',
-            'DisableText': '666666',
-            'PanelSelectFrameColor': '0052A6',
-            'DropTargetLine': 'FB0000',
-            'HoverText': '040404',
-            'ForeMasterMenuText': '5D626F',
-            'CaptionNameBGColor': '808080'
+            'ForeText': '333333',
+            'Back': 'FFFFFF',
+            'PressedButton': 'E5E5E5',
+            'FlowchartNormalBackColor': 'F3F3F3',
+            'DisableText': '767676',
+            'PanelSelectFrameColor': '0078D4',
+            'DropTargetLine': 'A31515',
+            'HoverText': '000000',
+            'ForeMasterMenuText': '666666',
+            'CaptionNameBGColor': 'D0D0D0'
         },
         'vscode_dark': {
             'UserRes': 'FFFFFF',
@@ -360,6 +360,32 @@ TransparentTileAdjustColor	#2d2d2d`;
             'HoverText': 'C8CCD4',
             'ForeMasterMenuText': '5C6370',
             'CaptionNameBGColor': '4B5263'
+        },
+        'windows_95': {
+            'UserRes': '000000',
+            'ForeText': '000000',
+            'Back': 'C0C0C0',
+            'PressedButton': '808080',
+            'FlowchartNormalBackColor': '808080',
+            'DisableText': '808080',
+            'PanelSelectFrameColor': '000080',
+            'DropTargetLine': '800000',
+            'HoverText': 'FFFFFF',
+            'ForeMasterMenuText': '000000',
+            'CaptionNameBGColor': '008080'
+        },
+        'cyberpunk': {
+            'UserRes': '00FFFF',
+            'ForeText': '00FF00',
+            'Back': '0A0A0A',
+            'PressedButton': '1F1F1F',
+            'FlowchartNormalBackColor': '050505',
+            'DisableText': '808080',
+            'PanelSelectFrameColor': 'FF00FF',
+            'DropTargetLine': 'FFFF00',
+            'HoverText': 'FFFFFF',
+            'ForeMasterMenuText': '00FFFF',
+            'CaptionNameBGColor': '404040'
         }
     };
 
