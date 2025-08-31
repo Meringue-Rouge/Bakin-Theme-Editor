@@ -37,7 +37,7 @@ BackPropertyBase	#1D1C1D
 //通常行の文字色
 ForePropertyText	#E6E6E6
 //選択アイテムの背景色（ツリービューも反応している）
-//BackPropertySelection	#505050 ツリーで選択状態の項目のバックカラー　　　
+//üliBackPropertySelection	#505050 ツリーで選択状態の項目のバックカラー　　　
 BackPropertySelection	#444344
 //選択アイテムの文字色（ツリービューも反応している）
 ForePropertySelection	#FEFCF2
@@ -54,7 +54,6 @@ BackMasterMenuBase	#282a2c
 ForeMasterMenuText	#a2a9b0
 //マスターメニューの選択カーソル？
 ForeMasterMenuSelection	#0052A6
-
 
 //Bakinフォームのテロップ部　
 //SBEditorFormStatusBackColor	#201f20
@@ -104,8 +103,6 @@ TelopColor	#D8D8D8
 //テキストボックスの背景（テキスト入力ができる場所のボックスの背景色）
 SBTextBoxBackColor	#1D1C1D
 
-
-
 //グリッドビューの余白部分の色 
 PropertyBackColor	#100f10
 //キャプションバーグレー見出しの背景色
@@ -152,6 +149,70 @@ MenuCheckBackColor	#3d3c3d
 //透明部分市松画像と掛け算する色のラベルを用意しました。　RGBが全て同じ値（グレー系）を設定してください。白で変化なしになります。
 TransparentTileAdjustColor	#2d2d2d`;
 
+    // Map of color entry names to image paths
+    const imageMap = {
+        'UserRes': 'images/UserRes.png',
+        'SysRes': 'images/SysRes.png',
+        'DlcRes': 'images/DlcRes.png',
+        'SelectedUserRes': 'images/SelectedUserRes.png',
+        'SelectedSysRes': 'images/SelectedSysRes.png',
+        'SelectedDlcRes': 'images/SelectedDlcRes.png',
+        'BattleEnemyMark': 'images/BattleEnemyMark.png',
+        'BattlePlayerMark': 'images/BattlePlayerMark.png',
+        'ForeText': 'images/ForeText.png',
+        'HoverText': 'images/HoverText.png',
+        'DisableText': 'images/DisableText.png',
+        'Back': 'images/Back.png',
+        'PropertyGridCellBorderColor': 'images/PropertyGridCellBorderColor.png',
+        'BackPropertyGroup': 'images/BackPropertyGroup.png',
+        'ForePropertyGroup': 'images/ForePropertyGroup.png',
+        'BackPropertyBase': 'images/BackPropertyBase.png',
+        'ForePropertyText': 'images/ForePropertyText.png',
+        'BackPropertySelection': 'images/BackPropertySelection.png',
+        'ForePropertySelection': 'images/ForePropertySelection.png',
+        'BackPropertyHideSelection': 'images/BackPropertyHideSelection.png',
+        'ForePropertyHideSelection': 'images/ForePropertyHideSelection.png',
+        'DropTargetLine': 'images/DropTargetLine.png',
+        'BackMasterMenuBase': 'images/BackMasterMenuBase.png',
+        'ForeMasterMenuText': 'images/ForeMasterMenuText.png',
+        'ForeMasterMenuSelection': 'images/ForeMasterMenuSelection.png',
+        'SBEditorFormStatusBackColor': 'images/SBEditorFormStatusBackColor.png',
+        'MultiplyButton': 'images/MultiplyButton.png',
+        'SBEditorFormCaptionBackColor': 'images/SBEditorFormCaptionBackColor.png',
+        'SBEditorFormCaptionForeColor': 'images/SBEditorFormCaptionForeColor.png',
+        'FlowchartNormalBackColor': 'images/FlowchartNormalBackColor.png',
+        'FlowchartCommonBackColor': 'images/FlowchartCommonBackColor.png',
+        'EventCommandPanelColor': 'images/EventCommandPanelColor.png',
+        'PanelSelectFrameColor': 'images/PanelSelectFrameColor.png',
+        'EventStartEndPanelColor': 'images/EventStartEndPanelColor.png',
+        'EventDescriptionTextColor': 'images/EventDescriptionTextColor.png',
+        'MultiplyGrayScaleImage': 'images/MultiplyGrayScaleImage.png',
+        'OnButton': 'images/OnButton.png',
+        'PressedButton': 'images/PressedButton.png',
+        'BorderButton': 'images/BorderButton.png',
+        'BackGraphArea': 'images/BackGraphArea.png',
+        'SplitterColor': 'images/SplitterColor.png',
+        'TelopColor': 'images/TelopColor.png',
+        'SBTextBoxBackColor': 'images/SBTextBoxBackColor.png',
+        'PropertyBackColor': 'images/PropertyBackColor.png',
+        'SBCaptionBarBackColor': 'images/SBCaptionBarBackColor.png',
+        'SBCaptionBarForeColor': 'images/SBCaptionBarForeColor.png',
+        'SBCaptionBarSeachBoxBackColor': 'images/SBCaptionBarSeachBoxBackColor.png',
+        'SBCaptionBarSeachBoxForeColor': 'images/SBCaptionBarSeachBoxForeColor.png',
+        'PropertyColumnHeaderBackColor': 'images/PropertyColumnHeaderBackColor.png',
+        'ListViewBackColor': 'images/ListViewBackColor.png',
+        'ListViewColumnHeaderBackColor': 'images/ListViewColumnHeaderBackColor.png',
+        'ListViewEvenRowBackColor': 'images/ListViewEvenRowBackColor.png',
+        'ListViewOddRowBackColor': 'images/ListViewOddRowBackColor.png',
+        'ToolStripBackColor': 'images/ToolStripBackColor.png',
+        'PropertyReadOnlyBackColor': 'images/PropertyReadOnlyBackColor.png',
+        'PropertyReadOnlyForeColor': 'images/PropertyReadOnlyForeColor.png',
+        'CaptionImageText': 'images/CaptionImageText.png',
+        'CaptionNameBGColor': 'images/CaptionNameBGColor.png',
+        'MenuCheckBackColor': 'images/MenuCheckBackColor.png',
+        'TransparentTileAdjustColor': 'images/TransparentTileAdjustColor.png'
+    };
+
     const lines = originalContent.split('\n');
     const data = [];
 
@@ -162,10 +223,12 @@ TransparentTileAdjustColor	#2d2d2d`;
         } else {
             const parts = line.split('#');
             if (parts.length >= 2) {
-                const prefix = parts[0];
+                const prefixRaw = parts[0];
+                const name = prefixRaw.trim();
+                const separator = prefixRaw.slice(name.length);
                 const colorPart = parts.slice(1).join('#').trim();
                 const isUpperCase = colorPart === colorPart.toUpperCase();
-                data.push({ type: 'entry', prefix: prefix, color: colorPart, isUpperCase: isUpperCase });
+                data.push({ type: 'entry', name, separator, color: colorPart, isUpperCase: isUpperCase });
             } else {
                 data.push({ type: 'comment', text: line });
             }
@@ -173,29 +236,52 @@ TransparentTileAdjustColor	#2d2d2d`;
     });
 
     const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+    let entryCount = 0;
+
     data.forEach(item => {
         const div = document.createElement('div');
         div.className = 'line';
         if (item.type === 'comment') {
+            div.classList.add('comment');
             div.textContent = item.text;
         } else {
+            div.classList.add('entry');
             const spanPrefix = document.createElement('span');
             spanPrefix.className = 'prefix';
-            spanPrefix.textContent = item.prefix;
-            const input = document.createElement('input');
-            input.type = 'color';
-            input.value = '#' + item.color;
+            spanPrefix.textContent = item.name;
+            const swatch = document.createElement('button');
+            swatch.className = 'swatch';
+            swatch.style.backgroundColor = '#' + item.color;
             const spanHex = document.createElement('span');
             spanHex.className = 'hex';
             spanHex.textContent = '#' + item.color;
+            const input = document.createElement('input');
+            input.type = 'color';
+            input.id = 'picker_' + entryCount;
+            input.value = '#' + item.color;
+            input.style.display = 'none';
             input.addEventListener('input', (e) => {
                 const newColor = e.target.value.substring(1);
                 item.color = item.isUpperCase ? newColor.toUpperCase() : newColor.toLowerCase();
                 spanHex.textContent = '#' + item.color;
+                swatch.style.backgroundColor = '#' + item.color;
+            });
+            swatch.addEventListener('click', () => {
+                input.click();
             });
             div.appendChild(spanPrefix);
-            div.appendChild(input);
+            div.appendChild(swatch);
             div.appendChild(spanHex);
+            div.appendChild(input);
+            div.addEventListener('mouseenter', () => {
+                const imagePath = imageMap[item.name] || 'https://placehold.co/400x300?text=No+Preview';
+                preview.src = imagePath;
+            });
+            div.addEventListener('mouseleave', () => {
+                preview.src = '';
+            });
+            entryCount++;
         }
         editor.appendChild(div);
     });
@@ -205,7 +291,7 @@ TransparentTileAdjustColor	#2d2d2d`;
             if (item.type === 'comment') {
                 return item.text;
             } else {
-                return item.prefix + '#' + item.color;
+                return item.name + item.separator + '#' + item.color;
             }
         }).join('\r\n');
         const blob = new Blob([output], { type: 'text/plain' });

@@ -9,8 +9,13 @@
 <body>
     <h1>ToolColorTable Editor</h1>
     <p>Edit the colors below using the color pickers. Click "Export" to download the modified file.</p>
-    <div id="editor"></div>
-    <button id="export">Export Modified File</button>
+    <div class="container">
+        <div id="editor"></div>
+        <div id="preview-container">
+            <img id="preview" src="" alt="Preview Image">
+        </div>
+    </div>
+    <button id="export">Export File</button>
     <script src="script.js"></script>
 </body>
 </html>

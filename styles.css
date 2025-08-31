@@ -3,7 +3,7 @@ body {
     background-color: #f4f4f4;
     color: #333;
     padding: 20px;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -11,43 +11,72 @@ h1 {
     text-align: center;
 }
 
+.container {
+    display: flex;
+}
+
 #editor {
+    flex: 1;
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-right: 20px;
     overflow-y: auto;
     max-height: 600px;
 }
 
+#preview-container {
+    width: 400px;
+    height: 600px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#preview {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
 .line {
     font-family: monospace;
-    white-space: pre;
+    white-space: pre-wrap;
     margin-bottom: 5px;
+}
+
+.comment {
+    color: #666;
+}
+
+.entry {
     display: flex;
     align-items: center;
 }
 
 .prefix {
+    flex: 1;
     color: #000;
 }
 
-input[type="color"] {
-    margin-left: 10px;
+.swatch {
+    width: 30px;
+    height: 30px;
     border: 1px solid #ccc;
-    width: 40px;
-    height: 20px;
     cursor: pointer;
+    margin: 0 10px;
 }
 
 .hex {
-    margin-left: 10px;
     color: #666;
 }
 
 button#export {
     display: block;
-    margin: 0 auto;
+    margin: 20px auto 0;
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
