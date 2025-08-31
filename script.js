@@ -282,21 +282,121 @@ TransparentTileAdjustColor	#2d2d2d`;
         { label: 'Medium Gray', baseName: 'CaptionNameBGColor', associates: ['MultiplyButton'] }
     ];
 
+    // Helper functions
+    function hexToRgb(hex) {
+        hex = hex.toUpperCase();
+        return {
+            r: parseInt(hex.substring(0, 2), 16),
+            g: parseInt(hex.substring(2, 4), 16),
+            b: parseInt(hex.substring(4, 6), 16)
+        };
+    }
+
+    function rgbToHex(rgb, upperCase) {
+        let hex = ((rgb.r << 16) | (rgb.g << 8) | rgb.b).toString(16).padStart(6, '0');
+        return upperCase ? hex.toUpperCase() : hex.toLowerCase();
+    }
+
+    function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+    }
+
+    function invertHex(hex, upperCase) {
+        const rgb = hexToRgb(hex);
+        const inverted = {
+            r: 255 - rgb.r,
+            g: 255 - rgb.g,
+            b: 255 - rgb.b
+        };
+        return rgbToHex(inverted, upperCase);
+    }
+
     // Compute offsets for groups
     groups.forEach(group => {
         group.offsets = {};
         const baseOriginalRgb = hexToRgb(nameToItem[group.baseName].originalColor);
         group.associates.forEach(assoc => {
-            const assocOriginalRgb = hexToRgb(nameToItem[assoc].originalColor);
+            const assocRgb = hexToRgb(nameToItem[assoc].originalColor);
             group.offsets[assoc] = {
-                r: assocOriginalRgb.r - baseOriginalRgb.r,
-                g: assocOriginalRgb.g - baseOriginalRgb.g,
-                b: assocOriginalRgb.b - baseOriginalRgb.b
+                r: assocRgb.r - baseOriginalRgb.r,
+                g: assocRgb.g - baseOriginalRgb.g,
+                b: assocRgb.b - baseOriginalRgb.b
             };
         });
     });
 
-    // Preset colors
+    function updateEntryUI(item) {
+        if (item.entrySwatch) {
+            item.entrySwatch.style.backgroundColor = '#' + item.color;
+            item.entryHex.textContent = '#' + item.color;
+        }
+    }
+
+    function setGroupColor(group, newHex) {
+        const baseItem = nameToItem[group.baseName];
+        baseItem.color = newHex;
+        updateEntryUI(baseItem);
+
+        const newRgb = hexToRgb(newHex);
+        group.associates.forEach(assoc => {
+            const off = group.offsets[assoc];
+            const assocRgb = {
+                r: clamp(newRgb.r + off.r, 0, 255),
+                g: clamp(newRgb.g + off.g, 0, 255),
+                b: clamp(newRgb.b + off.b, 0, 255)
+            };
+            const assocHex = rgbToHex(assocRgb, nameToItem[assoc].isUpperCase);
+            nameToItem[assoc].color = assocHex;
+            updateEntryUI(nameToItem[assoc]);
+        });
+
+        group.batchSwatch.style.backgroundColor = '#' + newHex;
+        group.batchHex.textContent = '#' + newHex;
+        updatePreview();
+    }
+
+    // Create batch UI
+    const batchesDiv = document.getElementById('batches');
+    groups.forEach(group => {
+        const div = document.createElement('div');
+        div.className = 'batch-line';
+
+        const label = document.createElement('span');
+        label.className = 'batch-label';
+        label.textContent = group.label + ':';
+
+        const swatch = document.createElement('button');
+        swatch.className = 'swatch';
+        swatch.style.backgroundColor = '#' + nameToItem[group.baseName].color;
+
+        const hex = document.createElement('span');
+        hex.className = 'hex';
+        hex.textContent = '#' + nameToItem[group.baseName].color;
+
+        const input = document.createElement('input');
+        input.type = 'color';
+        input.value = '#' + nameToItem[group.baseName].color;
+        input.style.display = 'none';
+
+        input.addEventListener('input', (e) => {
+            let newColor = e.target.value.substring(1);
+            newColor = nameToItem[group.baseName].isUpperCase ? newColor.toUpperCase() : newColor.toLowerCase();
+            setGroupColor(group, newColor);
+        });
+
+        swatch.addEventListener('click', () => input.click());
+
+        div.appendChild(label);
+        div.appendChild(swatch);
+        div.appendChild(hex);
+        div.appendChild(input);
+
+        group.batchSwatch = swatch;
+        group.batchHex = hex;
+
+        batchesDiv.appendChild(div);
+    });
+
     const presetColors = {
         'ms_office_dark': {
             'UserRes': 'FFFFFF',
@@ -469,103 +569,6 @@ TransparentTileAdjustColor	#2d2d2d`;
         }
     };
 
-    // Helper functions
-    function hexToRgb(hex) {
-        return {
-            r: parseInt(hex.substr(0, 2), 16),
-            g: parseInt(hex.substr(2, 2), 16),
-            b: parseInt(hex.substr(4, 2), 16)
-        };
-    }
-
-    function rgbToHex(rgb, upperCase) {
-        let hex = ((rgb.r << 16) | (rgb.g << 8) | rgb.b).toString(16).padStart(6, '0');
-        return upperCase ? hex.toUpperCase() : hex.toLowerCase();
-    }
-
-    function clamp(value, min, max) {
-        return Math.max(min, Math.min(max, value));
-    }
-
-    function invertHex(hex, isUpperCase) {
-        const rgb = hexToRgb(hex);
-        const invertedRgb = {
-            r: 255 - rgb.r,
-            g: 255 - rgb.g,
-            b: 255 - rgb.b
-        };
-        return rgbToHex(invertedRgb, isUpperCase);
-    }
-
-    function updateEntryUI(item) {
-        item.entrySwatch.style.backgroundColor = '#' + item.color;
-        item.entryHex.textContent = '#' + item.color;
-    }
-
-    function setGroupColor(group, newHex) {
-        const baseItem = nameToItem[group.baseName];
-        baseItem.color = newHex;
-        updateEntryUI(baseItem);
-
-        const newRgb = hexToRgb(newHex);
-        group.associates.forEach(assoc => {
-            const off = group.offsets[assoc];
-            const assocRgb = {
-                r: clamp(newRgb.r + off.r, 0, 255),
-                g: clamp(newRgb.g + off.g, 0, 255),
-                b: clamp(newRgb.b + off.b, 0, 255)
-            };
-            const assocHex = rgbToHex(assocRgb, nameToItem[assoc].isUpperCase);
-            nameToItem[assoc].color = assocHex;
-            updateEntryUI(nameToItem[assoc]);
-        });
-
-        group.batchSwatch.style.backgroundColor = '#' + newHex;
-        group.batchHex.textContent = '#' + newHex;
-    }
-
-    // Create batch UI
-    const batchesDiv = document.getElementById('batches');
-    groups.forEach(group => {
-        const div = document.createElement('div');
-        div.className = 'batch-line';
-
-        const label = document.createElement('span');
-        label.className = 'batch-label';
-        label.textContent = group.label + ':';
-
-        const swatch = document.createElement('button');
-        swatch.className = 'swatch';
-        swatch.style.backgroundColor = '#' + nameToItem[group.baseName].color;
-
-        const hex = document.createElement('span');
-        hex.className = 'hex';
-        hex.textContent = '#' + nameToItem[group.baseName].color;
-
-        const input = document.createElement('input');
-        input.type = 'color';
-        input.value = '#' + nameToItem[group.baseName].color;
-        input.style.display = 'none';
-
-        input.addEventListener('input', (e) => {
-            let newColor = e.target.value.substring(1);
-            newColor = nameToItem[group.baseName].isUpperCase ? newColor.toUpperCase() : newColor.toLowerCase();
-            setGroupColor(group, newColor);
-        });
-
-        swatch.addEventListener('click', () => input.click());
-
-        div.appendChild(label);
-        div.appendChild(swatch);
-        div.appendChild(hex);
-        div.appendChild(input);
-
-        group.batchSwatch = swatch;
-        group.batchHex = hex;
-
-        batchesDiv.appendChild(div);
-    });
-
     // Preset handler
     const presetSelect = document.getElementById('presetSelect');
     presetSelect.addEventListener('change', (e) => {
@@ -574,9 +577,7 @@ TransparentTileAdjustColor	#2d2d2d`;
             data.forEach(item => {
                 if (item.type === 'entry') {
                     item.color = item.originalColor;
-                    if (item.entrySwatch) {
-                        updateEntryUI(item);
-                    }
+                    updateEntryUI(item);
                 }
             });
             groups.forEach(group => {
@@ -606,75 +607,11 @@ TransparentTileAdjustColor	#2d2d2d`;
                 setGroupColor(group, randomColor);
             });
         }
+        updatePreview();
         e.target.value = ''; // Reset select
     });
 
-    // Map of color entry names to image paths
-    const imageMap = {
-        'UserRes': 'images/UserRes.png',
-        'SysRes': 'images/SysRes.png',
-        'DlcRes': 'images/DlcRes.png',
-        'SelectedUserRes': 'images/SelectedUserRes.png',
-        'SelectedSysRes': 'images/SelectedSysRes.png',
-        'SelectedDlcRes': 'images/SelectedDlcRes.png',
-        'BattleEnemyMark': 'images/BattleEnemyMark.png',
-        'BattlePlayerMark': 'images/BattlePlayerMark.png',
-        'ForeText': 'images/ForeText.png',
-        'HoverText': 'images/HoverText.png',
-        'DisableText': 'images/DisableText.png',
-        'Back': 'images/Back.png',
-        'PropertyGridCellBorderColor': 'images/PropertyGridCellBorderColor.png',
-        'BackPropertyGroup': 'images/BackPropertyGroup.png',
-        'ForePropertyGroup': 'images/ForePropertyGroup.png',
-        'BackPropertyBase': 'images/BackPropertyBase.png',
-        'ForePropertyText': 'images/ForePropertyText.png',
-        'BackPropertySelection': 'images/BackPropertySelection.png',
-        'ForePropertySelection': 'images/ForePropertySelection.png',
-        'BackPropertyHideSelection': 'images/BackPropertyHideSelection.png',
-        'ForePropertyHideSelection': 'images/ForePropertyHideSelection.png',
-        'DropTargetLine': 'images/DropTargetLine.png',
-        'BackMasterMenuBase': 'images/BackMasterMenuBase.png',
-        'ForeMasterMenuText': 'images/ForeMasterMenuText.png',
-        'ForeMasterMenuSelection': 'images/ForeMasterMenuSelection.png',
-        'SBEditorFormStatusBackColor': 'images/SBEditorFormStatusBackColor.png',
-        'MultiplyButton': 'images/MultiplyButton.png',
-        'SBEditorFormCaptionBackColor': 'images/SBEditorFormCaptionBackColor.png',
-        'SBEditorFormCaptionForeColor': 'images/SBEditorFormCaptionForeColor.png',
-        'FlowchartNormalBackColor': 'images/FlowchartNormalBackColor.png',
-        'FlowchartCommonBackColor': 'images/FlowchartCommonBackColor.png',
-        'EventCommandPanelColor': 'images/EventCommandPanelColor.png',
-        'PanelSelectFrameColor': 'images/PanelSelectFrameColor.png',
-        'EventStartEndPanelColor': 'images/EventStartEndPanelColor.png',
-        'EventDescriptionTextColor': 'images/EventDescriptionTextColor.png',
-        'MultiplyGrayScaleImage': 'images/MultiplyGrayScaleImage.png',
-        'OnButton': 'images/OnButton.png',
-        'PressedButton': 'images/PressedButton.png',
-        'BorderButton': 'images/BorderButton.png',
-        'BackGraphArea': 'images/BackGraphArea.png',
-        'SplitterColor': 'images/SplitterColor.png',
-        'TelopColor': 'images/TelopColor.png',
-        'SBTextBoxBackColor': 'images/SBTextBoxBackColor.png',
-        'PropertyBackColor': 'images/PropertyBackColor.png',
-        'SBCaptionBarBackColor': 'images/SBCaptionBarBackColor.png',
-        'SBCaptionBarForeColor': 'images/SBCaptionBarForeColor.png',
-        'SBCaptionBarSeachBoxBackColor': 'images/SBCaptionBarSeachBoxBackColor.png',
-        'SBCaptionBarSeachBoxForeColor': 'images/SBCaptionBarSeachBoxForeColor.png',
-        'PropertyColumnHeaderBackColor': 'images/PropertyColumnHeaderBackColor.png',
-        'ListViewBackColor': 'images/ListViewBackColor.png',
-        'ListViewColumnHeaderBackColor': 'images/ListViewColumnHeaderBackColor.png',
-        'ListViewEvenRowBackColor': 'images/ListViewEvenRowBackColor.png',
-        'ListViewOddRowBackColor': 'images/ListViewOddRowBackColor.png',
-        'ToolStripBackColor': 'images/ToolStripBackColor.png',
-        'PropertyReadOnlyBackColor': 'images/PropertyReadOnlyBackColor.png',
-        'PropertyReadOnlyForeColor': 'images/PropertyReadOnlyForeColor.png',
-        'CaptionImageText': 'images/CaptionImageText.png',
-        'CaptionNameBGColor': 'images/CaptionNameBGColor.png',
-        'MenuCheckBackColor': 'images/MenuCheckBackColor.png',
-        'TransparentTileAdjustColor': 'images/TransparentTileAdjustColor.png'
-    };
-
     const editor = document.getElementById('editor');
-    const preview = document.getElementById('preview');
     let entryCount = 0;
 
     data.forEach(item => {
@@ -704,6 +641,7 @@ TransparentTileAdjustColor	#2d2d2d`;
                 item.color = item.isUpperCase ? newColor.toUpperCase() : newColor.toLowerCase();
                 spanHex.textContent = '#' + item.color;
                 swatch.style.backgroundColor = '#' + item.color;
+                updatePreview();
             });
             swatch.addEventListener('click', () => {
                 input.click();
@@ -712,19 +650,24 @@ TransparentTileAdjustColor	#2d2d2d`;
             div.appendChild(swatch);
             div.appendChild(spanHex);
             div.appendChild(input);
-            div.addEventListener('mouseenter', () => {
-                const imagePath = imageMap[item.name] || 'https://placehold.co/400x300?text=No+Preview';
-                preview.src = imagePath;
-            });
-            div.addEventListener('mouseleave', () => {
-                preview.src = '';
-            });
             item.entrySwatch = swatch;
             item.entryHex = spanHex;
             entryCount++;
         }
         editor.appendChild(div);
     });
+
+    function updatePreview() {
+        const preview = document.getElementById('preview');
+        data.forEach(item => {
+            if (item.type === 'entry') {
+                preview.style.setProperty(`--${item.name}`, `#${item.color}`);
+            }
+        });
+    }
+
+    // Initial update
+    updatePreview();
 
     document.getElementById('export').addEventListener('click', () => {
         const output = data.map(item => {

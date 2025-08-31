@@ -106,10 +106,9 @@ h1, h2 {
 }
 
 #preview {
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
-    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .line {
@@ -184,4 +183,161 @@ button#export:hover {
     padding: 2px 4px;
     border-radius: 3px;
     color: #d8d8d8;
+}
+
+/* New styles for simulated preview */
+.bakin-preview {
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    border: 1px solid var(--BorderButton);
+}
+
+.bakin-preview .top-bar {
+    background-color: var(--SBEditorFormCaptionBackColor);
+    color: var(--SBEditorFormCaptionForeColor);
+    padding: 2px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+}
+
+.bakin-preview .top-bar .buttons {
+    font-size: 10px;
+}
+
+.bakin-preview .main-content {
+    flex: 1;
+    display: flex;
+    background-color: var(--Back);
+    color: var(--ForeText);
+    overflow: hidden;
+}
+
+.bakin-preview .left-panel {
+    width: 20%;
+    border-right: 1px solid var(--SplitterColor);
+    background-color: var(--PropertyBackColor);
+}
+
+.bakin-preview .center-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.bakin-preview .right-panel {
+    width: 30%;
+    border-left: 1px solid var(--SplitterColor);
+    background-color: var(--Back);
+}
+
+.bakin-preview .panel-header {
+    background-color: var(--SBCaptionBarBackColor);
+    color: var(--SBCaptionBarForeColor);
+    padding: 2px 5px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--PropertyGridCellBorderColor);
+}
+
+.bakin-preview .list-item {
+    padding: 2px 5px;
+    background-color: var(--BackPropertyBase);
+    color: var(--ForePropertyText);
+    border-bottom: 1px solid var(--PropertyGridCellBorderColor);
+}
+
+.bakin-preview .list-item.selected {
+    background-color: var(--BackPropertySelection);
+    color: var(--ForePropertySelection);
+}
+
+.bakin-preview .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--BorderButton);
+}
+
+.bakin-preview .tab {
+    padding: 2px 5px;
+    cursor: pointer;
+    border-right: 1px solid var(--BorderButton);
+}
+
+.bakin-preview .tab.unselected {
+    background-color: var(--OnButton);
+    color: var(--ForeText);
+}
+
+.bakin-preview .tab.selected {
+    background-color: var(--PressedButton);
+    color: var(--ForeText);
+}
+
+.bakin-preview .resource-list {
+    background-color: var(--ListViewBackColor);
+    border-bottom: 1px solid var(--PropertyGridCellBorderColor);
+}
+
+.bakin-preview .group-header {
+    background-color: var(--BackPropertyGroup);
+    color: var(--ForePropertyGroup);
+    padding: 2px 5px;
+    font-weight: bold;
+}
+
+.bakin-preview .item {
+    padding: 2px 5px;
+    color: var(--ForeMasterMenuText);
+    border-bottom: 1px solid var(--PropertyGridCellBorderColor);
+}
+
+.bakin-preview .item.selected {
+    background-color: var(--BackMasterMenuBase);
+    color: var(--ForeMasterMenuSelection);
+}
+
+.bakin-preview .preview-3d {
+    flex: 1;
+    background-color: var(--FlowchartNormalBackColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-style: italic;
+    border: 1px solid var(--SplitterColor);
+}
+
+.bakin-preview .properties {
+    background-color: var(--SBTextBoxBackColor);
+}
+
+.bakin-preview .property-group {
+    background-color: var(--BackPropertyGroup);
+    color: var(--ForePropertyGroup);
+    padding: 2px 5px;
+}
+
+.bakin-preview .property {
+    padding: 2px 5px;
+    background-color: var(--BackPropertyBase);
+    color: var(--ForePropertyText);
+    border-bottom: 1px solid var(--PropertyGridCellBorderColor);
+}
+
+.bakin-preview .property.selected {
+    background-color: var(--BackPropertySelection);
+    color: var(--ForePropertySelection);
+}
+
+.bakin-preview .property.disabled {
+    color: var(--DisableText);
+}
+
+.bakin-preview .status-bar {
+    background-color: var(--SBEditorFormStatusBackColor);
+    color: var(--TelopColor);
+    padding: 2px 5px;
+    font-size: 10px;
 }
