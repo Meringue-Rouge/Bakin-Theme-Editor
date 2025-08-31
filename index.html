@@ -14,9 +14,12 @@
         </div>
     </header>
 
-    <p data-i18n="description">
-        Edit the colors below using the color pickers. Use batch editors for grouped changes. Click "Export" to download the modified file.
-    </p>
+    <div id="install-instructions">
+        <h2 data-i18n="installTitle">How to Install</h2>
+        <p data-i18n="installInstructions">
+            To use the customized theme, place the downloaded <code>ToolColorTable.txt</code> file into your <code>Program Files (x86)\Steam\steamapps\common\BAKIN\lib\sysresource</code> folder. This overrides the dark theme, so make sure to make a backup of the file first.
+        </p>
+    </div>
 
     <div id="presets">
         <label data-i18n="presetLabel">Select Preset Theme:</label>
@@ -88,12 +91,7 @@
 
     <button id="export" data-i18n="export">Export File</button>
 
-    <div id="install-instructions">
-        <h2 data-i18n="installTitle">How to Install</h2>
-        <p data-i18n="installInstructions">
-            To use the customized theme, place the downloaded <code>ToolColorTable.txt</code> file into your <code>Program Files (x86)\Steam\steamapps\common\BAKIN\lib\sysresource</code> folder. This overrides the dark theme, so make sure to make a backup of the file first.
-        </p>
-    </div>
+    
 
     <script src="script.js"></script>
 </body>
