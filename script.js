@@ -1,4 +1,87 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Translation object
+    const translations = {
+        en: {
+            title: 'Bakin Theme Editor',
+            toggleLanguage: '日本語',
+            description: 'Edit the colors below using the color pickers. Use batch editors for grouped changes. Click "Export" to download the modified file.',
+            presetLabel: 'Select Preset Theme:',
+            presetOriginal: 'Original Dark',
+            presetLight: 'Light Theme',
+            presetMSOfficeDark: 'MS Office Dark',
+            presetMSOfficeLight: 'MS Office Light',
+            presetVSCodeDark: 'VS Code Dark',
+            presetVSCodeLight: 'VS Code Light',
+            presetSolarizedDark: 'Solarized Dark',
+            presetSolarizedLight: 'Solarized Light',
+            presetDracula: 'Dracula',
+            presetNord: 'Nord',
+            presetGruvboxDark: 'Gruvbox Dark',
+            presetMonokai: 'Monokai',
+            presetOneDark: 'One Dark',
+            presetWindows95: 'Windows 95',
+            presetCyberpunk: 'Cyberpunk',
+            presetRandom: 'Random Colors',
+            batchEditors: 'Batch Editors',
+            export: 'Export File',
+            installTitle: 'How to Install',
+            installInstructions: 'To use the customized theme, place the downloaded <code>ToolColorTable.txt</code> file into your <code>Program Files (x86)\\Steam\\steamapps\\common\\BAKIN\\lib\\sysresource</code> folder. This overrides the dark theme, so make sure to make a backup of the file first.'
+        },
+        ja: {
+            title: 'Bakin テーマエディター',
+            toggleLanguage: 'English',
+            description: '以下のカラーを使って色を編集してください。グループ編集にはバッチエディターを使用してください。「エクスポート」をクリックして、変更したファイルをダウンロードしてください。',
+            presetLabel: 'プリセットテーマを選択：',
+            presetOriginal: 'オリジナルダーク',
+            presetLight: 'ライトテーマ',
+            presetMSOfficeDark: 'MS Office ダーク',
+            presetMSOfficeLight: 'MS Office ライト',
+            presetVSCodeDark: 'VS Code ダーク',
+            presetVSCodeLight: 'VS Code ライト',
+            presetSolarizedDark: 'ソラライズドダーク',
+            presetSolarizedLight: 'ソラライズドライト',
+            presetDracula: 'ドラキュラ',
+            presetNord: 'ノルド',
+            presetGruvboxDark: 'グルボックスダーク',
+            presetMonokai: 'モノカイ',
+            presetOneDark: 'ワンダーク',
+            presetWindows95: 'Windows 95',
+            presetCyberpunk: 'サイバーパンク',
+            presetRandom: 'ランダムカラー',
+            batchEditors: 'バッチエディター',
+            export: 'ファイルをエクスポート',
+            installTitle: 'インストール方法',
+            installInstructions: 'カスタマイズしたテーマを使用するには、ダウンロードした <code>ToolColorTable.txt</code> ファイルを <code>Program Files (x86)\\Steam\\steamapps\\common\\BAKIN\\lib\\sysresource</code> フォルダーに配置してください。この操作はダークテーマを上書きするため、最初にファイルのバックアップを作成してください。'
+        }
+    };
+
+    // Language state
+    let currentLanguage = localStorage.getItem('language') || 'en';
+
+    function updateLanguage(lang) {
+        currentLanguage = lang;
+        localStorage.setItem('language', lang);
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                if (key === 'installInstructions') {
+                    element.innerHTML = translations[lang][key];
+                } else {
+                    element.textContent = translations[lang][key];
+                }
+            }
+        });
+        document.getElementById('languageToggle').textContent = lang === 'en' ? translations.en.toggleLanguage : translations.ja.toggleLanguage;
+    }
+
+    // Initialize language
+    updateLanguage(currentLanguage);
+
+    // Language toggle handler
+    document.getElementById('languageToggle').addEventListener('click', () => {
+        updateLanguage(currentLanguage === 'en' ? 'ja' : 'en');
+    });
+
     const originalContent = `//不要
 UserRes	#FFFFFF
 SysRes	#FFFFFF
@@ -55,7 +138,6 @@ ForeMasterMenuText	#a2a9b0
 //マスターメニューの選択カーソル？
 ForeMasterMenuSelection	#0052A6
 
-
 //Bakinフォームのテロップ部　
 //SBEditorFormStatusBackColor	#201f20
 SBEditorFormStatusBackColor	#2d2c2d
@@ -104,8 +186,6 @@ TelopColor	#D8D8D8
 //テキストボックスの背景（テキスト入力ができる場所のボックスの背景色）
 SBTextBoxBackColor	#1D1C1D
 
-
-
 //グリッドビューの余白部分の色 
 PropertyBackColor	#100f10
 //キャプションバーグレー見出しの背景色
@@ -152,9 +232,9 @@ MenuCheckBackColor	#3d3c3d
 //透明部分市松画像と掛け算する色のラベルを用意しました。　RGBが全て同じ値（グレー系）を設定してください。白で変化なしになります。
 TransparentTileAdjustColor	#2d2d2d`;
 
-    const lines = originalContent.split('\n');
+    // Parse originalContent to create data array
     const data = [];
-
+    const lines = originalContent.split('\n');
     lines.forEach(line => {
         const trimmed = line.trim();
         if (trimmed.startsWith('//') || trimmed === '') {
@@ -529,7 +609,7 @@ TransparentTileAdjustColor	#2d2d2d`;
         e.target.value = ''; // Reset select
     });
 
-    // Map of color entry names to image paths (unchanged from previous)
+    // Map of color entry names to image paths
     const imageMap = {
         'UserRes': 'images/UserRes.png',
         'SysRes': 'images/SysRes.png',

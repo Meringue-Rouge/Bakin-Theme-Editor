@@ -7,6 +7,20 @@ body {
     margin: 0 auto;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
 h1, h2 {
     text-align: center;
     color: #ffffff;
@@ -22,6 +36,22 @@ h1, h2 {
     color: #d8d8d8;
     border: 1px solid #404040;
     padding: 5px;
+    border-radius: 4px;
+}
+
+#languageToggle {
+    background-color: #0078d4;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+#languageToggle:hover {
+    background-color: #005a9e;
 }
 
 #batches {
@@ -130,4 +160,28 @@ button#export {
 
 button#export:hover {
     background-color: #005a9e;
+}
+
+#install-instructions {
+    margin-top: 20px;
+    background-color: #282828;
+    border: 1px solid #404040;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+#install-instructions h2 {
+    margin-top: 0;
+}
+
+#install-instructions p {
+    margin: 10px 0;
+}
+
+#install-instructions code {
+    background-color: #2d2d2d;
+    padding: 2px 4px;
+    border-radius: 3px;
+    color: #d8d8d8;
 }
