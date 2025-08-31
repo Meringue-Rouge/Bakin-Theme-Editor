@@ -216,6 +216,153 @@ TransparentTileAdjustColor	#2d2d2d`;
         });
     });
 
+    // Preset colors
+    const presetColors = {
+        'blender_dark': {
+            'UserRes': 'FFFFFF',
+            'ForeText': 'D8D8D8',
+            'Back': '282828',
+            'PressedButton': '545454',
+            'FlowchartNormalBackColor': '282828',
+            'DisableText': '999999',
+            'PanelSelectFrameColor': '0052A6',
+            'DropTargetLine': 'FB0000',
+            'HoverText': 'FBFBFB',
+            'ForeMasterMenuText': 'A2A9B0',
+            'CaptionNameBGColor': '808080'
+        },
+        'blender_light': {
+            'UserRes': '000000',
+            'ForeText': '282828',
+            'Back': 'F0F0F0',
+            'PressedButton': 'D0D0D0',
+            'FlowchartNormalBackColor': 'E0E0E0',
+            'DisableText': '666666',
+            'PanelSelectFrameColor': '0052A6',
+            'DropTargetLine': 'FB0000',
+            'HoverText': '040404',
+            'ForeMasterMenuText': '5D626F',
+            'CaptionNameBGColor': '808080'
+        },
+        'vscode_dark': {
+            'UserRes': 'FFFFFF',
+            'ForeText': 'CCCCCC',
+            'Back': '252526',
+            'PressedButton': '3E3E42',
+            'FlowchartNormalBackColor': '1E1E1E',
+            'DisableText': '858585',
+            'PanelSelectFrameColor': '007ACC',
+            'DropTargetLine': 'F44747',
+            'HoverText': 'DCDCDC',
+            'ForeMasterMenuText': '858585',
+            'CaptionNameBGColor': '2D2D30'
+        },
+        'vscode_light': {
+            'UserRes': '000000',
+            'ForeText': '333333',
+            'Back': 'FFFFFF',
+            'PressedButton': 'EEEEEE',
+            'FlowchartNormalBackColor': 'F0F0F0',
+            'DisableText': '767676',
+            'PanelSelectFrameColor': '007ACC',
+            'DropTargetLine': 'A31515',
+            'HoverText': '000000',
+            'ForeMasterMenuText': '767676',
+            'CaptionNameBGColor': 'DDDDDD'
+        },
+        'solarized_dark': {
+            'UserRes': '93A1A1',
+            'ForeText': '839496',
+            'Back': '073642',
+            'PressedButton': '002B36',
+            'FlowchartNormalBackColor': '002B36',
+            'DisableText': '586E75',
+            'PanelSelectFrameColor': '268BD2',
+            'DropTargetLine': 'DC322F',
+            'HoverText': '93A1A1',
+            'ForeMasterMenuText': '586E75',
+            'CaptionNameBGColor': '657B83'
+        },
+        'solarized_light': {
+            'UserRes': '073642',
+            'ForeText': '657B83',
+            'Back': 'EEE8D5',
+            'PressedButton': 'FDF6E3',
+            'FlowchartNormalBackColor': 'FDF6E3',
+            'DisableText': '93A1A1',
+            'PanelSelectFrameColor': '268BD2',
+            'DropTargetLine': 'DC322F',
+            'HoverText': '002B36',
+            'ForeMasterMenuText': '93A1A1',
+            'CaptionNameBGColor': '839496'
+        },
+        'dracula': {
+            'UserRes': 'F8F8F2',
+            'ForeText': 'F8F8F2',
+            'Back': '282A36',
+            'PressedButton': '44475A',
+            'FlowchartNormalBackColor': '21222C',
+            'DisableText': '6272A4',
+            'PanelSelectFrameColor': 'BD93F9',
+            'DropTargetLine': 'FF5555',
+            'HoverText': 'F1FA8C',
+            'ForeMasterMenuText': '6272A4',
+            'CaptionNameBGColor': '6272A4'
+        },
+        'nord': {
+            'UserRes': 'ECEFF4',
+            'ForeText': 'D8DEE9',
+            'Back': '3B4252',
+            'PressedButton': '434C5E',
+            'FlowchartNormalBackColor': '2E3440',
+            'DisableText': '4C566A',
+            'PanelSelectFrameColor': '5E81AC',
+            'DropTargetLine': 'BF616A',
+            'HoverText': 'E5E9F0',
+            'ForeMasterMenuText': '4C566A',
+            'CaptionNameBGColor': '434C5E'
+        },
+        'gruvbox_dark': {
+            'UserRes': 'EBDbb2',
+            'ForeText': 'EBDbb2',
+            'Back': '3C3836',
+            'PressedButton': '504945',
+            'FlowchartNormalBackColor': '282828',
+            'DisableText': '928374',
+            'PanelSelectFrameColor': '458588',
+            'DropTargetLine': 'CC241D',
+            'HoverText': 'FBF1C7',
+            'ForeMasterMenuText': '928374',
+            'CaptionNameBGColor': '7C6F64'
+        },
+        'monokai': {
+            'UserRes': 'D6D6D6',
+            'ForeText': 'D6D6D6',
+            'Back': '2D2D2D',
+            'PressedButton': '49483E',
+            'FlowchartNormalBackColor': '272822',
+            'DisableText': '797979',
+            'PanelSelectFrameColor': '66D9EF',
+            'DropTargetLine': 'F92672',
+            'HoverText': 'FFFFFF',
+            'ForeMasterMenuText': '797979',
+            'CaptionNameBGColor': '75715E'
+        },
+        'one_dark': {
+            'UserRes': 'ABB2BF',
+            'ForeText': 'ABB2BF',
+            'Back': '282C34',
+            'PressedButton': '3C4048',
+            'FlowchartNormalBackColor': '21252B',
+            'DisableText': '5C6370',
+            'PanelSelectFrameColor': '61AFEF',
+            'DropTargetLine': 'E06C75',
+            'HoverText': 'C8CCD4',
+            'ForeMasterMenuText': '5C6370',
+            'CaptionNameBGColor': '4B5263'
+        }
+    };
+
     // Helper functions
     function hexToRgb(hex) {
         return {
@@ -337,6 +484,13 @@ TransparentTileAdjustColor	#2d2d2d`;
                 const orig = baseItem.originalColor;
                 const invHex = invertHex(orig, baseItem.isUpperCase);
                 setGroupColor(group, invHex);
+            });
+        } else if (presetColors[val]) {
+            groups.forEach(group => {
+                let newColor = presetColors[val][group.baseName];
+                const isUpper = nameToItem[group.baseName].isUpperCase;
+                newColor = isUpper ? newColor.toUpperCase() : newColor.toLowerCase();
+                setGroupColor(group, newColor);
             });
         } else if (val === 'random') {
             groups.forEach(group => {
