@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             batchEditors: 'Batch Editors',
             export: 'Export File',
             installTitle: 'How to Install',
-            installInstructions: 'To use the customized theme, place the downloaded <code>ToolColorTable.txt</code> file into your <code>Program Files (x86)\\Steam\\steamapps\\common\\BAKIN\\lib\\sysresource</code> folder. This overrides the dark theme, so make sure to make a backup of the file first.'
+            installInstructions: 'To use the customized theme, place the downloaded <code>ToolColorTable.txt</code> file into your <code>Program Files (x86)\\Steam\\steamapps\\common\\BAKIN\\lib\\sysresource</code> folder. This overrides the dark theme, so make sure to make a backup of the file first.\nThanks to Stryfek for spotting a bug that caused some colors to not apply properly.'
         },
         ja: {
             title: 'Bakin テーマエディター',
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             batchEditors: 'バッチエディター',
             export: 'ファイルをエクスポート',
             installTitle: 'インストール方法',
-            installInstructions: 'カスタマイズしたテーマを使用するには、ダウンロードした <code>ToolColorTable.txt</code> ファイルを <code>Program Files (x86)\\Steam\\steamapps\\common\\BAKIN\\lib\\sysresource</code> フォルダーに配置してください。この操作はダークテーマを上書きするため、最初にファイルのバックアップを作成してください。'
+            installInstructions: 'カスタマイズしたテーマを使用するには、ダウンロードした <code>ToolColorTable.txt</code> ファイルを <code>Program Files (x86)\\Steam\\steamapps\\common\\BAKIN\\lib\\sysresource</code> フォルダーに配置してください。この操作はダークテーマを上書きするため、最初にファイルのバックアップを作成してください。 Stryfek さんが一部の色が正しく適用されないバグを発見してくれたことに感謝します。'
         }
     };
 
