@@ -186,19 +186,17 @@ TelopColor	#D8D8D8
 //テキストボックスの背景（テキスト入力ができる場所のボックスの背景色）
 SBTextBoxBackColor	#1D1C1D
 
-
-
 //グリッドビューの余白部分の色 
 PropertyBackColor	#100f10
 //キャプションバーグレー見出しの背景色
-SBCaptionBarBackColor #3c3b3c
-//SBCaptionBarBackColor #5E5E5E
+SBCaptionBarBackColor	#3c3b3c
+//SBCaptionBarBackColor	#5E5E5E
 //キャプションバーグレー見出しの文字色
-SBCaptionBarForeColor #C8C8C8
+SBCaptionBarForeColor	#C8C8C8
 //キャプションバーグレー見出しの検索ボックスの背景色
-SBCaptionBarSeachBoxBackColor #504f50
+SBCaptionBarSeachBoxBackColor	#504f50
 //キャプションバーグレー見出しの検索ボックスの文字色
-SBCaptionBarSeachBoxForeColor #E6E6E6
+SBCaptionBarSeachBoxForeColor	#E6E6E6
 
 PropertyBackColor	#302f30
 
