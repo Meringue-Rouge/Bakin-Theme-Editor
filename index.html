@@ -10,9 +10,18 @@
     <header>
         <div class="header-container">
             <h1 data-i18n="title">Bakin Theme Editor</h1>
-            <button id="languageToggle" data-i18n="toggleLanguage">日本語</button>
+            <div>
+                <button id="languageToggle" data-i18n="toggleLanguage">日本語</button>
+                <a href="https://meringue-rouge.github.io/" target="_blank">
+                    <img src="logo.png" alt="Logo" style="height: 40px; margin-left: 20px;">
+                </a>
+            </div>
         </div>
     </header>
+
+    <p data-i18n="description">
+        Edit the colors below using the color pickers. Use batch editors for grouped changes. Click on preview elements or use "Export" to download the modified file.
+    </p>
 
     <div id="install-instructions">
         <h2 data-i18n="installTitle">How to Install</h2>
@@ -22,9 +31,9 @@
     </div>
 
     <div id="presets">
-        <label data-i18n="presetLabel">Select Preset Theme:</label>
+        <label for="presetSelect" data-i18n="presetLabel">Select Preset Theme:</label>
         <select id="presetSelect">
-            <option value="" selected disabled>-- Select --</option>
+            <option value="">-- Select --</option>
             <option value="original" data-i18n="presetOriginal">Original Dark</option>
             <option value="light" data-i18n="presetLight">Light Theme</option>
             <option value="ms_office_dark" data-i18n="presetMSOfficeDark">MS Office Dark</option>
@@ -44,55 +53,57 @@
         </select>
     </div>
 
-    <h2 data-i18n="batchEditors">Batch Editors</h2>
-    <div id="batches"></div>
+    <div id="batches">
+        <h2 data-i18n="batchEditors">Batch Editors</h2>
+    </div>
 
     <div class="container">
         <div id="editor"></div>
         <div id="preview-container">
             <div id="preview" class="bakin-preview">
-                <div class="top-bar" data-color="SBEditorFormCaptionBackColor" data-foreground="SBEditorFormCaptionForeColor">
+                <div class="top-bar">
                     <span>Map Editor - help_rv1035</span>
                     <span class="buttons">File Edit View Functions Test Play Help</span>
                 </div>
                 <div class="main-content">
-                    <div class="left-panel" data-color="PropertyBackColor">
-                        <div class="panel-header" data-color="SBCaptionBarBackColor" data-foreground="SBCaptionBarForeColor">Map List</div>
-                        <div class="list-item" data-color="BackPropertyBase" data-foreground="ForePropertyText">Map_1</div>
-                        <div class="list-item selected" data-color="BackPropertySelection" data-foreground="ForePropertySelection">Common Event</div>
+                    <div class="left-panel">
+                        <div class="panel-header">Map List</div>
+                        <div class="list-item selected">Map_1</div>
+                        <div class="list-item">Common Event</div>
                     </div>
                     <div class="center-panel">
                         <div class="tabs">
-                            <div class="tab unselected" data-color="OnButton" data-foreground="ForeText">Terrains</div>
-                            <div class="tab selected" data-color="PressedButton" data-foreground="ForeText">3D Stamps</div>
+                            <div class="tab selected" data-color="PressedButton" data-foreground="ForeText">Terrains</div>
+                            <div class="tab unselected" data-color="OnButton" data-foreground="ForeText">3D Stamps</div>
                             <div class="tab unselected" data-color="OnButton" data-foreground="ForeText">2D Stamps</div>
                         </div>
-                        <div class="resource-list" data-color="ListViewBackColor">
+                        <div class="resource-list">
                             <div class="group-header" data-color="BackPropertyGroup" data-foreground="ForePropertyGroup">Reserved</div>
                             <div class="item" data-color="BackMasterMenuBase" data-foreground="ForeMasterMenuText">For Event Templates</div>
                             <div class="item selected" data-color="BackMasterMenuBase" data-foreground="ForeMasterMenuSelection">Water Surface</div>
                         </div>
                         <div class="preview-3d" data-color="FlowchartNormalBackColor">3D View Area</div>
                     </div>
-                    <div class="right-panel" data-color="Back">
+                    <div class="right-panel">
                         <div class="panel-header" data-color="SBCaptionBarBackColor" data-foreground="SBCaptionBarForeColor">3D Stamp Properties</div>
-                        <div class="properties" data-color="SBTextBoxBackColor">
+                        <div class="properties">
                             <div class="property-group" data-color="BackPropertyGroup" data-foreground="ForePropertyGroup">Basic</div>
                             <div class="property" data-color="BackPropertyBase" data-foreground="ForePropertyText">Name: Water Surface 2</div>
-                            <div class="property" data-color="BackPropertyBase" data-foreground="ForePropertyText">Graphic Name: sb_obj_Water</div>
+                            <div class="property selected" data-color="BackPropertySelection" data-foreground="ForePropertySelection">Graphic Name: sb_obj_Water</div>
                             <div class="property disabled" data-color="BackPropertyBase" data-foreground="DisableText">Disabled Property</div>
                         </div>
                     </div>
                 </div>
-                <div class="status-bar" data-color="SBEditorFormStatusBackColor" data-foreground="TelopColor">Manage all materials used in the game...</div>
+                <div class="status-bar" data-color="SBEditorFormStatusBackColor" data-foreground="TelopColor">
+                    Manage all materials used in the game...
+                </div>
             </div>
         </div>
     </div>
 
     <button id="export" data-i18n="export">Export File</button>
 
-    
-
+    <script src="themes.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
