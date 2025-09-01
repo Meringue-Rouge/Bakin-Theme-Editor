@@ -422,11 +422,17 @@ TransparentTileAdjustColor	#2d2d2d`;
                 setGroupColor(group, invHex);
             });
         } else if (presetColors[val]) {
+            data.forEach(item => {
+                if (item.type === 'entry' && presetColors[val][item.name]) {
+                    const newColor = item.isUpperCase ? presetColors[val][item.name].toUpperCase() : presetColors[val][item.name].toLowerCase();
+                    item.color = newColor;
+                    updateEntryUI(item);
+                }
+            });
             groups.forEach(group => {
-                let newColor = presetColors[val][group.baseName];
-                const isUpper = nameToItem[group.baseName].isUpperCase;
-                newColor = isUpper ? newColor.toUpperCase() : newColor.toLowerCase();
-                setGroupColor(group, newColor);
+                const col = nameToItem[group.baseName].color;
+                group.batchSwatch.style.backgroundColor = '#' + col;
+                group.batchHex.textContent = '#' + col;
             });
         } else if (val === 'random') {
             groups.forEach(group => {
