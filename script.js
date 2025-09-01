@@ -124,8 +124,7 @@ ForePropertyText	#E6E6E6
 BackPropertySelection	#444344
 //選択アイテムの文字色（ツリービューも反応している）
 ForePropertySelection	#FEFCF2
-//フォーカ聶
-ーカスが無いグリッドビューの選択アイテムの背景色（ツリービューは反応していない）
+//フォーカスが無いグリッドビューの選択アイテムの背景色（ツリービューは反応していない）
 BackPropertyHideSelection	#323132
 // フォーカスが無いグリッドビューの選択アイテムの文字色（ツリービューは反応していない）★★現在反応していない。これは修正？　★★
 ForePropertyHideSelection	#bEbCb2
@@ -186,6 +185,8 @@ TelopColor	#D8D8D8
 // Appendix
 //テキストボックスの背景（テキスト入力ができる場所のボックスの背景色）
 SBTextBoxBackColor	#1D1C1D
+
+
 
 //グリッドビューの余白部分の色 
 PropertyBackColor	#100f10
