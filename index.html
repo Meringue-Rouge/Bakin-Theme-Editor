@@ -5,32 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bakin Theme Editor</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="themes.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
     <header>
         <div class="header-container">
             <h1 data-i18n="title">Bakin Theme Editor</h1>
-            <div>
-                <button id="languageToggle" data-i18n="toggleLanguage">日本語</button>
-                <a href="https://meringue-rouge.github.io/" target="_blank">
-                    <img src="logo.png" alt="Logo" style="height: 40px; margin-left: 20px;">
-                </a>
-            </div>
+            <button id="languageToggle" data-i18n="toggleLanguage">日本語</button>
         </div>
     </header>
 
-    <p data-i18n="description">
-        Edit the colors below using the color pickers. Use batch editors for grouped changes. Click on preview elements or use "Export" to download the modified file.
-    </p>
-
-    <div id="install-instructions">
-        <h2 data-i18n="installTitle">How to Install</h2>
-        <p data-i18n="installInstructions">
-            To use the customized theme, place the downloaded <code>ToolColorTable.txt</code> file into your <code>Program Files (x86)\Steam\steamapps\common\BAKIN\lib\sysresource</code> folder. This overrides the dark theme, so make sure to make a backup of the file first.
-        </p>
-    </div>
-
-    <div id="presets">
+    <section id="presets">
         <label for="presetSelect" data-i18n="presetLabel">Select Preset Theme:</label>
         <select id="presetSelect">
             <option value="">-- Select --</option>
@@ -38,84 +24,66 @@
             <option value="light" data-i18n="presetLight">Light Theme</option>
             <option value="ms_office_dark" data-i18n="presetMSOfficeDark">MS Office Dark</option>
             <option value="ms_office_light" data-i18n="presetMSOfficeLight">MS Office Light</option>
-            <option value="vscode_dark" data-i18n="presetVSCodeDark">VS Code Dark</option>
-            <option value="vscode_light" data-i18n="presetVSCodeLight">VS Code Light</option>
-            <option value="solarized_dark" data-i18n="presetSolarizedDark">Solarized Dark</option>
-            <option value="solarized_light" data-i18n="presetSolarizedLight">Solarized Light</option>
-            <option value="dracula" data-i18n="presetDracula">Dracula</option>
-            <option value="nord" data-i18n="presetNord">Nord</option>
-            <option value="gruvbox_dark" data-i18n="presetGruvboxDark">Gruvbox Dark</option>
-            <option value="monokai" data-i18n="presetMonokai">Monokai</option>
-            <option value="one_dark" data-i18n="presetOneDark">One Dark</option>
-            <option value="windows_95" data-i18n="presetWindows95">Windows 95</option>
-            <option value="cyberpunk" data-i18n="presetCyberpunk">Cyberpunk</option>
-            <option value="ocean_breeze" data-i18n="presetOceanBreeze">Ocean Breeze</option>
-            <option value="sunset_glow" data-i18n="presetSunsetGlow">Sunset Glow</option>
-            <option value="forest_mist" data-i18n="presetForestMist">Forest Mist</option>
-            <option value="desert_sun" data-i18n="presetDesertSun">Desert Sun</option>
-            <option value="midnight_sky" data-i18n="presetMidnightSky">Midnight Sky</option>
-            <option value="autumn_haze" data-i18n="presetAutumnHaze">Autumn Haze</option>
-            <option value="polar_night" data-i18n="presetPolarNight">Polar Night</option>
-            <option value="coral_reef" data-i18n="presetCoralReef">Coral Reef</option>
-            <option value="lavender_fields" data-i18n="presetLavenderFields">Lavender Fields</option>
-            <option value="golden_harvest" data-i18n="presetGoldenHarvest">Golden Harvest</option>
-            <option value="stormy_seas" data-i18n="presetStormySeas">Stormy Seas</option>
-            <option value="emerald_city" data-i18n="presetEmeraldCity">Emerald City</option>
+            <option value="intellij_idea" data-i18n="presetIntelliJ">IntelliJ IDEA</option>
+            <option value="sublime_text" data-i18n="presetSublimeText">Sublime Text</option>
+            <option value="photoshop" data-i18n="presetPhotoshop">Photoshop</option>
             <option value="random" data-i18n="presetRandom">Random Colors</option>
         </select>
-    </div>
+    </section>
 
-    <div id="batches">
+    <p data-i18n="description">Edit the colors below using the color pickers. Use batch editors for grouped changes. Click on preview elements or use "Export" to download the modified file.</p>
+
+    <section id="install-instructions">
+        <h2 data-i18n="installTitle">How to Install</h2>
+        <p data-i18n="installInstructions">To use the customized theme, place the downloaded <code>ToolColorTable.txt</code> file into your <code>Program Files (x86)\Steam\steamapps\common\BAKIN\lib\sysresource</code> folder. This overrides the dark theme, so make sure to make a backup of the file first.</p>
+    </section>
+
+    <section id="batches">
         <h2 data-i18n="batchEditors">Batch Editors</h2>
-    </div>
+    </section>
 
     <div class="container">
         <div id="editor"></div>
         <div id="preview-container">
             <div id="preview" class="bakin-preview">
-                <div class="top-bar">
+                <div class="top-bar" data-color="EditorFormCaptionBackColor" data-foreground="EditorFormCaptionForeColor">
                     <span>Map Editor - help_rv1035</span>
-                    <span class="buttons">File Edit View Functions Test Play Help</span>
+                    <div class="buttons">File Edit View Functions Test Play Help</div>
                 </div>
                 <div class="main-content">
                     <div class="left-panel">
-                        <div class="panel-header">Map List</div>
-                        <div class="list-item selected">Map_1</div>
-                        <div class="list-item">Common Event</div>
+                        <div class="panel-header" data-color="CaptionBarBackColor" data-foreground="CaptionBarForeColor">Map List</div>
+                        <div class="list-item" data-color="PropertyGridCellBackColor" data-foreground="PropertyGridCellForeColor">Map_1</div>
+                        <div class="list-item selected" data-color="PropertyGridSelectedBackColor" data-foreground="PropertyGridSelectedForeColor">Common Event</div>
                     </div>
                     <div class="center-panel">
                         <div class="tabs">
-                            <div class="tab selected" data-color="PressedButton" data-foreground="ForeText">Terrains</div>
-                            <div class="tab unselected" data-color="OnButton" data-foreground="ForeText">3D Stamps</div>
-                            <div class="tab unselected" data-color="OnButton" data-foreground="ForeText">2D Stamps</div>
+                            <div class="tab unselected" data-color="ButtonHoverColor" data-foreground="BaseTextForeColor">Terrains</div>
+                            <div class="tab selected" data-color="ButtonPressedColor" data-foreground="BaseTextForeColor">3D Stamps</div>
+                            <div class="tab unselected" data-color="ButtonHoverColor" data-foreground="BaseTextForeColor">2D Stamps</div>
                         </div>
-                        <div class="resource-list">
-                            <div class="group-header" data-color="BackPropertyGroup" data-foreground="ForePropertyGroup">Reserved</div>
-                            <div class="item" data-color="BackMasterMenuBase" data-foreground="ForeMasterMenuText">For Event Templates</div>
-                            <div class="item selected" data-color="BackMasterMenuBase" data-foreground="ForeMasterMenuSelection">Water Surface</div>
+                        <div class="resource-list" data-color="ListViewBackColor">
+                            <div class="group-header" data-color="PropertyGridGroupBackColor" data-foreground="PropertyGridGroupForeColor">Reserved</div>
+                            <div class="item" data-color="MasterMenuBackColor" data-foreground="MasterMenuForeColor">For Event Templates</div>
+                            <div class="item selected" data-color="MasterMenuBackColor" data-foreground="MasterMenuSelectedColor">Water Surface</div>
                         </div>
-                        <div class="preview-3d" data-color="FlowchartNormalBackColor">3D View Area</div>
+                        <div class="preview-3d" data-color="EventEditorPanelModeNormalEventBackColor">3D View Area</div>
                     </div>
                     <div class="right-panel">
-                        <div class="panel-header" data-color="SBCaptionBarBackColor" data-foreground="SBCaptionBarForeColor">3D Stamp Properties</div>
-                        <div class="properties">
-                            <div class="property-group" data-color="BackPropertyGroup" data-foreground="ForePropertyGroup">Basic</div>
-                            <div class="property" data-color="BackPropertyBase" data-foreground="ForePropertyText">Name: Water Surface 2</div>
-                            <div class="property selected" data-color="BackPropertySelection" data-foreground="ForePropertySelection">Graphic Name: sb_obj_Water</div>
-                            <div class="property disabled" data-color="BackPropertyBase" data-foreground="DisableText">Disabled Property</div>
+                        <div class="panel-header" data-color="CaptionBarBackColor" data-foreground="CaptionBarForeColor">3D Stamp Properties</div>
+                        <div class="properties" data-color="TextBoxBackColor">
+                            <div class="property-group" data-color="PropertyGridGroupBackColor" data-foreground="PropertyGridGroupForeColor">Basic</div>
+                            <div class="property" data-color="PropertyGridCellBackColor" data-foreground="PropertyGridCellForeColor">Name: Water Surface 2</div>
+                            <div class="property selected" data-color="PropertyGridSelectedBackColor" data-foreground="PropertyGridSelectedForeColor">Graphic Name: sb_obj_Water</div>
+                            <div class="property disabled" data-foreground="BaseTextDisableColor">Disabled Property</div>
                         </div>
                     </div>
                 </div>
-                <div class="status-bar" data-color="SBEditorFormStatusBackColor" data-foreground="TelopColor">
-                    Manage all materials used in the game...
-                </div>
+                <div class="status-bar" data-color="EditorFormStatusBarBackColor" data-foreground="TelopColor">Manage all materials used in the game...</div>
             </div>
         </div>
     </div>
 
     <button id="export" data-i18n="export">Export File</button>
-
-    <script src="themes.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>

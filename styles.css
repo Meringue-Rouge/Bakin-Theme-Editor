@@ -1,5 +1,5 @@
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     background-color: #1e1e1e;
     color: #d8d8d8;
     padding: 20px;
@@ -45,7 +45,7 @@ h1, h2 {
     border: none;
     padding: 8px 16px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 14px;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
@@ -191,12 +191,12 @@ button#export:hover {
     flex-direction: column;
     font-size: 10px;
     font-family: 'Segoe UI', Arial, sans-serif;
-    border: 1px solid var(--BorderButton);
+    border: 1px solid var(--ButtonBorderColor);
 }
 
 .bakin-preview .top-bar {
-    background-color: var(--SBEditorFormCaptionBackColor);
-    color: var(--SBEditorFormCaptionForeColor);
+    background-color: var(--EditorFormCaptionBackColor);
+    color: var(--EditorFormCaptionForeColor);
     padding: 2px 5px;
     display: flex;
     justify-content: space-between;
@@ -211,15 +211,15 @@ button#export:hover {
 .bakin-preview .main-content {
     flex: 1;
     display: flex;
-    background-color: var(--Back);
-    color: var(--ForeText);
+    background-color: var(--BaseTextBackColor);
+    color: var(--BaseTextForeColor);
     overflow: hidden;
 }
 
 .bakin-preview .left-panel {
     width: 20%;
     border-right: 1px solid var(--SplitterColor);
-    background-color: var(--PropertyBackColor);
+    background-color: var(--PropertyGridBaseBackColor);
 }
 
 .bakin-preview .center-panel {
@@ -231,12 +231,12 @@ button#export:hover {
 .bakin-preview .right-panel {
     width: 30%;
     border-left: 1px solid var(--SplitterColor);
-    background-color: var(--Back);
+    background-color: var(--BaseTextBackColor);
 }
 
 .bakin-preview .panel-header {
-    background-color: var(--SBCaptionBarBackColor);
-    color: var(--SBCaptionBarForeColor);
+    background-color: var(--CaptionBarBackColor);
+    color: var(--CaptionBarForeColor);
     padding: 2px 5px;
     font-weight: bold;
     border-bottom: 1px solid var(--PropertyGridCellBorderColor);
@@ -244,35 +244,35 @@ button#export:hover {
 
 .bakin-preview .list-item {
     padding: 2px 5px;
-    background-color: var(--BackPropertyBase);
-    color: var(--ForePropertyText);
+    background-color: var(--PropertyGridCellBackColor);
+    color: var(--PropertyGridCellForeColor);
     border-bottom: 1px solid var(--PropertyGridCellBorderColor);
 }
 
 .bakin-preview .list-item.selected {
-    background-color: var(--BackPropertySelection);
-    color: var(--ForePropertySelection);
+    background-color: var(--PropertyGridSelectedBackColor);
+    color: var(--PropertyGridSelectedForeColor);
 }
 
 .bakin-preview .tabs {
     display: flex;
-    border-bottom: 1px solid var(--BorderButton);
+    border-bottom: 1px solid var(--ButtonBorderColor);
 }
 
 .bakin-preview .tab {
     padding: 2px 5px;
     cursor: pointer;
-    border-right: 1px solid var(--BorderButton);
+    border-right: 1px solid var(--ButtonBorderColor);
 }
 
 .bakin-preview .tab.unselected {
-    background-color: var(--OnButton);
-    color: var(--ForeText);
+    background-color: var(--ButtonHoverColor);
+    color: var(--BaseTextForeColor);
 }
 
 .bakin-preview .tab.selected {
-    background-color: var(--PressedButton);
-    color: var(--ForeText);
+    background-color: var(--ButtonPressedColor);
+    color: var(--BaseTextForeColor);
 }
 
 .bakin-preview .resource-list {
@@ -281,26 +281,26 @@ button#export:hover {
 }
 
 .bakin-preview .group-header {
-    background-color: var(--BackPropertyGroup);
-    color: var(--ForePropertyGroup);
+    background-color: var(--PropertyGridGroupBackColor);
+    color: var(--PropertyGridGroupForeColor);
     padding: 2px 5px;
     font-weight: bold;
 }
 
 .bakin-preview .item {
     padding: 2px 5px;
-    color: var(--ForeMasterMenuText);
+    color: var(--MasterMenuForeColor);
     border-bottom: 1px solid var(--PropertyGridCellBorderColor);
 }
 
 .bakin-preview .item.selected {
-    background-color: var(--BackMasterMenuBase);
-    color: var(--ForeMasterMenuSelection);
+    background-color: var(--MasterMenuBackColor);
+    color: var(--MasterMenuSelectedColor);
 }
 
 .bakin-preview .preview-3d {
     flex: 1;
-    background-color: var(--FlowchartNormalBackColor);
+    background-color: var(--EventEditorPanelModeNormalEventBackColor);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -310,33 +310,33 @@ button#export:hover {
 }
 
 .bakin-preview .properties {
-    background-color: var(--SBTextBoxBackColor);
+    background-color: var(--TextBoxBackColor);
 }
 
 .bakin-preview .property-group {
-    background-color: var(--BackPropertyGroup);
-    color: var(--ForePropertyGroup);
+    background-color: var(--PropertyGridGroupBackColor);
+    color: var(--PropertyGridGroupForeColor);
     padding: 2px 5px;
 }
 
 .bakin-preview .property {
     padding: 2px 5px;
-    background-color: var(--BackPropertyBase);
-    color: var(--ForePropertyText);
+    background-color: var(--PropertyGridCellBackColor);
+    color: var(--PropertyGridCellForeColor);
     border-bottom: 1px solid var(--PropertyGridCellBorderColor);
 }
 
 .bakin-preview .property.selected {
-    background-color: var(--BackPropertySelection);
-    color: var(--ForePropertySelection);
+    background-color: var(--PropertyGridSelectedBackColor);
+    color: var(--PropertyGridSelectedForeColor);
 }
 
 .bakin-preview .property.disabled {
-    color: var(--DisableText);
+    color: var(--BaseTextDisableColor);
 }
 
 .bakin-preview .status-bar {
-    background-color: var(--SBEditorFormStatusBackColor);
+    background-color: var(--EditorFormStatusBarBackColor);
     color: var(--TelopColor);
     padding: 2px 5px;
     font-size: 10px;

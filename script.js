@@ -10,29 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
             presetLight: 'Light Theme',
             presetMSOfficeDark: 'MS Office Dark',
             presetMSOfficeLight: 'MS Office Light',
-            presetVSCodeDark: 'VS Code Dark',
-            presetVSCodeLight: 'VS Code Light',
-            presetSolarizedDark: 'Solarized Dark',
-            presetSolarizedLight: 'Solarized Light',
-            presetDracula: 'Dracula',
-            presetNord: 'Nord',
-            presetGruvboxDark: 'Gruvbox Dark',
-            presetMonokai: 'Monokai',
-            presetOneDark: 'One Dark',
-            presetWindows95: 'Windows 95',
-            presetCyberpunk: 'Cyberpunk',
-            presetOceanBreeze: 'Ocean Breeze',
-            presetSunsetGlow: 'Sunset Glow',
-            presetForestMist: 'Forest Mist',
-            presetDesertSun: 'Desert Sun',
-            presetMidnightSky: 'Midnight Sky',
-            presetAutumnHaze: 'Autumn Haze',
-            presetPolarNight: 'Polar Night',
-            presetCoralReef: 'Coral Reef',
-            presetLavenderFields: 'Lavender Fields',
-            presetGoldenHarvest: 'Golden Harvest',
-            presetStormySeas: 'Stormy Seas',
-            presetEmeraldCity: 'Emerald City',
+            presetIntelliJ: 'IntelliJ IDEA',
+            presetSublimeText: 'Sublime Text',
+            presetPhotoshop: 'Photoshop',
             presetRandom: 'Random Colors',
             batchEditors: 'Batch Editors',
             export: 'Export File',
@@ -48,29 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
             presetLight: 'ライトテーマ',
             presetMSOfficeDark: 'MS Office ダーク',
             presetMSOfficeLight: 'MS Office ライト',
-            presetVSCodeDark: 'VS Code ダーク',
-            presetVSCodeLight: 'VS Code ライト',
-            presetSolarizedDark: 'ソラライズドダーク',
-            presetSolarizedLight: 'ソラライズドライト',
-            presetDracula: 'ドラキュラ',
-            presetNord: 'ノルド',
-            presetGruvboxDark: 'グルボックスダーク',
-            presetMonokai: 'モノカイ',
-            presetOneDark: 'ワンダーク',
-            presetWindows95: 'Windows 95',
-            presetCyberpunk: 'サイバーパンク',
-            presetOceanBreeze: 'オーシャンブリーズ',
-            presetSunsetGlow: 'サンセットグロー',
-            presetForestMist: 'フォレストミスト',
-            presetDesertSun: 'デザートサン',
-            presetMidnightSky: 'ミッドナイトスカイ',
-            presetAutumnHaze: 'オータムヘイズ',
-            presetPolarNight: 'ポーラーナイト',
-            presetCoralReef: 'コーラルリーフ',
-            presetLavenderFields: 'ラベンダーフィールド',
-            presetGoldenHarvest: 'ゴールデンハーベスト',
-            presetStormySeas: 'ストーミーシーズ',
-            presetEmeraldCity: 'エメラルドシティ',
+            presetIntelliJ: 'IntelliJ IDEA',
+            presetSublimeText: 'Sublime Text',
+            presetPhotoshop: 'Photoshop',
             presetRandom: 'ランダムカラー',
             batchEditors: 'バッチエディター',
             export: 'ファイルをエクスポート',
@@ -78,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             installInstructions: 'カスタマイズしたテーマを使用するには、ダウンロードした <code>ToolColorTable.txt</code> ファイルを <code>Program Files (x86)\\Steam\\steamapps\\common\\BAKIN\\lib\\sysresource</code> フォルダーに配置してください。この操作はダークテーマを上書きするため、最初にファイルのバックアップを作成してください。 Stryfek さんが一部の色が正しく適用されないバグを発見してくれたことに感謝します。'
         }
     };
+
 
     // Language state
     let currentLanguage = localStorage.getItem('language') || 'en';
@@ -106,185 +67,124 @@ document.addEventListener('DOMContentLoaded', () => {
         updateLanguage(currentLanguage === 'en' ? 'ja' : 'en');
     });
 
-    const originalContent = `//不要
-UserRes	#FFFFFF
-SysRes	#FFFFFF
-DlcRes	#FFFFFF
-SelectedUserRes	#FFFFFF
-SelectedSysRes	#FFFFFF
-SelectedDlcRes	#FFFFFF
-//位置マーカーに対する色
-BattleEnemyMark	#EF0031
-BattlePlayerMark	#285DFA
+    const originalContent = `version	1
+//Core Tool Components/ツール基本要素
+BaseTextForeColor	#D8D8D8
+BaseTextHoverColor	#FBFBFB
+BaseTextDisableColor	#999999
+BaseTextBackColor	#292829
 
-//ボタン等の文字/背景色
-//文字色
-//ForeText	#E6E6E6
-ForeText	#D8D8D8
-//マウスが載った時の文字色
-HoverText	#FBFBFB
-//選択される文字（ボタン）で選択されてない時の文字色 とトップメニューの右側のボタンが非選択時。適用ボタンの非選択時
-DisableText	#999999
-//文字の背景色
-//Back	#000000
-//Back	#1b1c1d
-Back	#292829
-
-//グリッドビュー関連　カラムの境界線
-PropertyGridCellBorderColor	#0e0e0e
-//PropertyGridCellBorderColor	#6a6a6a
-
-//グループ行オレンジ見出しの背景色
-BackPropertyGroup	#3A3A3A
-//グループ行オレンジ見出しの文字色
-//ForePropertyGroup	#E6E6E6
-ForePropertyGroup	#E0E0E0
-//通常行の背景色
-BackPropertyBase	#1D1C1D
-//通常行の文字色
-ForePropertyText	#E6E6E6
-//選択アイテムの背景色（ツリービューも反応している）
-//BackPropertySelection	#505050 ツリーで選択状態の項目のバックカラー　　　
-BackPropertySelection	#444344
-//選択アイテムの文字色（ツリービューも反応している）
-ForePropertySelection	#FEFCF2
-//フォーカスが無いグリッドビューの選択アイテムの背景色（ツリービューは反応していない）
-BackPropertyHideSelection	#323132
-// フォーカスが無いグリッドビューの選択アイテムの文字色（ツリービューは反応していない）★★現在反応していない。これは修正？　★★
-ForePropertyHideSelection	#bEbCb2
-//ツリービューのドロップ位置の線の色
-DropTargetLine	#FB0000
-
-//マスターメニュー関連　マスターはサブ要素なので文字色はやや暗めに、地の色は明るめに。
-//BackMasterMenuBase	#323132
-BackMasterMenuBase	#282a2c
-ForeMasterMenuText	#a2a9b0
-//マスターメニューの選択カーソル？
-ForeMasterMenuSelection	#0052A6
-
-//Bakinフォームのテロップ部　
-//SBEditorFormStatusBackColor	#201f20
-SBEditorFormStatusBackColor	#2d2c2d
-MultiplyButton	#807F80
-//Bakinフォームのキャプション部の背景色(上部）
-SBEditorFormCaptionBackColor	#201f20
-//SBEditorFormCaptionBackColor	#2d2c2d
-//Bakinフォームのキャプション部の文字色
-SBEditorFormCaptionForeColor	#E6E6E6
-
-//イベントエディターパネルモード背景色（通常）
-FlowchartNormalBackColor	#101118
-//イベントエディターパネルモード背景色（コモンほか）
-FlowchartCommonBackColor	#101811
-
-//イベントエディタ・パネル表示のパネル自体の背景色
-//EventCommandPanelColor	#323132
-EventCommandPanelColor	#363536
-//イベントエディタ・パネル選択時（編集時）の枠の色ラベル
-PanelSelectFrameColor	#0052A6
-
-//イベントエディタ・イベント開始条件パネルとイベント終了パネル自体の背景色
-EventStartEndPanelColor	#363536
-
-//イベントエディタ・分岐のはいいいえのテキスト色
-EventDescriptionTextColor	#D0D0D0
-
-//道具パレットのボタン画像に対するグレースケール化用/ダイアログ下部にある「前」「次」「保存」ボタンについてアイコン/データベースのカスタムイベントボタンのアイコン/TOPMENU内のアイコン付きボタン
-//MultiplyGrayScaleImage	#dddddd
-MultiplyGrayScaleImage	#E3E3E3
-
-//非選択タブの背景色
-OnButton	#202020
-//選択タブの背景色
-PressedButton	#505050
-//非選択タブのボーダー線色
-BorderButton	#404040
-//レベル曲線等のグラフの背景色（コメントアウトして不適用）★★これはなぜ？
-BackGraphArea	#404040
-//スプリッター色（エディタのドッキングライブラリの境界線は未対応）★★
+//Dialog Related/ダイアログ関連
+EditorFormTitleForeColor	#E0E0E0
+EditorFormTitleBackColor	#808080
+EditorFormCaptionBackColor	#201f20
+EditorFormCaptionForeColor	#E6E6E6
+EditorFormStatusBarBackColor	#2d2c2d
 SplitterColor	#404040
-//テロップ色（下部にOK/キャンセル/適用等があるダイアログのテロップには不適用）★★
 TelopColor	#D8D8D8
 
-// Appendix
-//テキストボックスの背景（テキスト入力ができる場所のボックスの背景色）
-SBTextBoxBackColor	#1D1C1D
-
-//グリッドビューの余白部分の色 
-PropertyBackColor	#100f10
-//キャプションバーグレー見出しの背景色
-SBCaptionBarBackColor	#3c3b3c
-//SBCaptionBarBackColor	#5E5E5E
-//キャプションバーグレー見出しの文字色
-SBCaptionBarForeColor	#C8C8C8
-//キャプションバーグレー見出しの検索ボックスの背景色
-SBCaptionBarSeachBoxBackColor	#504f50
-//キャプションバーグレー見出しの検索ボックスの文字色
-SBCaptionBarSeachBoxForeColor	#E6E6E6
-
-PropertyBackColor	#302f30
-
-//グリッドビューの上のカラムヘッダの背景色　データベースのステータス設定欄のようにグリッドビューの上の白い項目見出しの行。
-PropertyColumnHeaderBackColor	#4B4a4B
-
-//リストビューの背景色（ローカライズツールのようなダイアログ）
-ListViewBackColor	#302f30
-//リストビューのカラムヘッダの背景色
-ListViewColumnHeaderBackColor	#403f40
-//リストビューの偶数行の背景色　（特殊書式挿入のように行ごとに色が変わるダイアログ） 
-//ListViewEvenRowBackColor	#202820
-ListViewEvenRowBackColor	#20201f
-//リストビューの奇数行の背景色　
-ListViewOddRowBackColor	#202328
-
-//ツールストリップの背景色（配置リスト等の上にあるボタン等が並ぶバー）
-ToolStripBackColor	#302f30
-
-//グリッドビューの読み取り専用行の色指定 Backが背景、Foreが文字色
-PropertyReadOnlyBackColor	#404040
-//PropertyReadOnlyForeColor	#A0A0A0
-PropertyReadOnlyForeColor	#999999
-
-//ダイアログのタイトル::::型の文字　通常テキストよりは暗くする
-CaptionImageText	#E0E0E0
-//キャプション背景(:::)の色指定追加
-CaptionNameBGColor	#808080
-
-//マップエディター上部などドロップダウンメニューにチェックが付いた場合の背景色用ラベル
+//Map Editor Dropdowns & Tabs/マップエディタードロップダウンメニュー&タブ関連
+ButtonHoverColor	#202020
+ButtonPressedColor	#505050
+ButtonBorderColor	#404040
 MenuCheckBackColor	#3d3c3d
 
-//透明部分市松画像と掛け算する色のラベルを用意しました。　RGBが全て同じ値（グレー系）を設定してください。白で変化なしになります。
-TransparentTileAdjustColor	#2d2d2d`;
+//Property Grid Related/プロパティグリッド関連
+PropertyGridBaseBackColor	#171617
+PropertyGridGroupBackColor	#3A3A3A
+PropertyGridGroupForeColor	#E0E0E0
+PropertyGridCellBackColor	#1D1C1D
+PropertyGridCellForeColor	#E6E6E6
+PropertyGridCellBorderColor	#0e0e0e
+PropertyGridSelectedBackColor	#444344
+PropertyGridSelectedForeColor	#FEFCF2
+PropertyGridInactiveSelectedBackColor	#323132
+PropertyGridInactiveSelectedForeColor	#bEbCb2
+PropertyGridColumnHeaderBackColor	#4B4a4B
+PropertyGridReadOnlyBackColor	#404040
+PropertyGridReadOnlyForeColor	#999999
 
-    // Parse originalContent to create data array
-    const data = [];
+//Toolstrip Section (e.g. Copy/Delete Buttons)/ツールストリップ関連（コピー/削除ボタンなどが並ぶセクション）
+ToolStripBackColor	#302f30
+
+//Master Menu Related/マスターメニュー関連
+MasterMenuBackColor	#282a2c
+MasterMenuForeColor	#a2a9b0
+MasterMenuSelectedColor	#0052A6
+
+//Caption Bar Related/キャプションバー hearsay
+CaptionBarBackColor	#3c3b3c
+CaptionBarForeColor	#C8C8C8
+CaptionBarSeachBoxBackColor	#504f50
+CaptionBarSeachBoxForeColor	#E6E6E6
+
+//List View Related/リストビュー関連
+ListViewBackColor	#232223
+ListViewColumnHeaderBackColor	#403f40
+ListViewEvenRowBackColor	#20201f
+ListViewOddRowBackColor	#202328
+
+//Textbox Related/テキストボックス関係
+TextBoxBackColor	#1D1C1D
+
+//Resource & Camera Tool List/リソース・カメラツールのリスト関連
+ResIconUserResColor	#FFFFFF
+ResIconSysResColor	#FFFFFF
+ResIconDlcResColor	#FFFFFF
+ResIconSelectedUserResColor	#FFFFFF
+ResIconSelectedSysResColor	#FFFFFF
+ResIconSelectedDlcResColor	#FFFFFF
+
+//Drop Line Indicator in Tree Views/ツリーへ項目をドロップした際のライン
+DropTargetLineColor	#FB0000
+
+//Graph Related/グラフ関係
+GraphAreaBackColor	#404040
+
+//Adjustment Color (Multiply on Target)/調整色（対象に乗算）
+BlendButtonColor	#807F80
+BlendGrayScaleImageColor	#E3E3E3
+BlendTransparentTileColor	#2d2d2d
+
+//Event Editor Related/イベントエディター関連
+EventEditorPanelModeNormalEventBackColor	#101118
+EventEditorPanelModeCommonEventBackColor	#101811
+EventEditorCommandPanelColor	#363536
+EventEditorCommandPanelSelectedFrameColor	#0052A6
+EventEditorCommandStartEndPanelColor	#363536
+EventEditorCommandSummaryTextColor	#D0D0D0
+
+//Battle Layout Dialog Markers/バトルレイアウトダイアログマーカー
+BattleLayoutEnemyMarkColor	#EF0031
+BattleLayoutPlayerMarkColor	#285DFA`;
+
+    // Parse the content
     const lines = originalContent.split('\n');
+    const data = [];
     lines.forEach(line => {
-        const trimmed = line.trim();
-        if (trimmed.startsWith('//') || trimmed === '') {
+        line = line.trim();
+        if (line.startsWith('//') || line === '') {
             data.push({ type: 'comment', text: line });
         } else {
-            const parts = line.split('#');
-            if (parts.length >= 2) {
-                const prefixRaw = parts[0];
-                const name = prefixRaw.trim();
-                const separator = prefixRaw.slice(name.length);
-                const colorPart = parts.slice(1).join('#').trim();
-                const isUpperCase = colorPart === colorPart.toUpperCase();
-                data.push({ type: 'entry', name, separator, color: colorPart, isUpperCase: isUpperCase });
+            const parts = line.split(/\s+/);
+            if (parts.length === 2 && parts[1].startsWith('#')) {
+                const name = parts[0];
+                let color = parts[1].substring(1).toUpperCase();
+                data.push({
+                    type: 'entry',
+                    name,
+                    separator: '\t',
+                    color,
+                    originalColor: color,
+                    isUpperCase: true
+                });
             } else {
                 data.push({ type: 'comment', text: line });
             }
         }
     });
 
-    // Store original colors
-    data.forEach(item => {
-        if (item.type === 'entry') {
-            item.originalColor = item.color;
-        }
-    });
-
+    // Map names to items for easy access
     const nameToItem = {};
     data.forEach(item => {
         if (item.type === 'entry') {
@@ -292,62 +192,139 @@ TransparentTileAdjustColor	#2d2d2d`;
         }
     });
 
+    // Define groups with new names
     const groups = [
-        { label: 'White Resources', baseName: 'UserRes', associates: ['SysRes', 'DlcRes', 'SelectedUserRes', 'SelectedSysRes', 'SelectedDlcRes'] },
-        { label: 'Light Text', baseName: 'ForeText', associates: ['TelopColor', 'EventDescriptionTextColor', 'ForePropertyText', 'SBEditorFormCaptionForeColor', 'SBCaptionBarSeachBoxForeColor', 'CaptionImageText', 'ForePropertyGroup', 'SBCaptionBarForeColor'] },
-        { label: 'Dark Background', baseName: 'Back', associates: ['BackMasterMenuBase', 'SBEditorFormStatusBackColor', 'SBEditorFormCaptionBackColor', 'SBTextBoxBackColor', 'ListViewBackColor', 'ToolStripBackColor', 'ListViewEvenRowBackColor', 'ListViewOddRowBackColor', 'OnButton', 'EventCommandPanelColor', 'EventStartEndPanelColor', 'BackPropertyBase', 'SBCaptionBarBackColor', 'MenuCheckBackColor', 'TransparentTileAdjustColor', 'PropertyBackColor', 'BackPropertyHideSelection'] },
-        { label: 'Medium Background', baseName: 'PressedButton', associates: ['PropertyColumnHeaderBackColor', 'ListViewColumnHeaderBackColor', 'BackGraphArea', 'SplitterColor', 'BorderButton', 'PropertyReadOnlyBackColor', 'SBCaptionBarSeachBoxBackColor', 'BackPropertySelection', 'BackPropertyGroup'] },
-        { label: 'Very Dark Background', baseName: 'FlowchartNormalBackColor', associates: ['FlowchartCommonBackColor', 'PropertyGridCellBorderColor'] },
-        { label: 'Disabled Text', baseName: 'DisableText', associates: ['PropertyReadOnlyForeColor'] },
-        { label: 'Accent Blue', baseName: 'PanelSelectFrameColor', associates: ['ForeMasterMenuSelection', 'BattlePlayerMark'] },
-        { label: 'Accent Red', baseName: 'DropTargetLine', associates: ['BattleEnemyMark'] },
-        { label: 'Other Light', baseName: 'HoverText', associates: ['MultiplyGrayScaleImage', 'ForePropertySelection'] },
-        { label: 'Muted Text', baseName: 'ForeMasterMenuText', associates: ['ForePropertyHideSelection'] },
-        { label: 'Medium Gray', baseName: 'CaptionNameBGColor', associates: ['MultiplyButton'] }
+        {
+            label: 'Text',
+            baseName: 'BaseTextForeColor',
+            associates: ['BaseTextHoverColor', 'BaseTextDisableColor'],
+            offsets: {
+                'BaseTextHoverColor': { r: 37, g: 37, b: 37 },
+                'BaseTextDisableColor': { r: -121, g: -121, b: -121 }
+            }
+        },
+        {
+            label: 'Background',
+            baseName: 'BaseTextBackColor',
+            associates: [],
+            offsets: {}
+        },
+        {
+            label: 'Property Grid',
+            baseName: 'PropertyGridCellBackColor',
+            associates: ['PropertyGridGroupBackColor', 'PropertyGridSelectedBackColor', 'PropertyGridInactiveSelectedBackColor', 'PropertyGridBaseBackColor', 'TextBoxBackColor'],
+            offsets: {
+                'PropertyGridGroupBackColor': { r: 29, g: 30, b: 29 },
+                'PropertyGridSelectedBackColor': { r: 39, g: 39, b: 39 },
+                'PropertyGridInactiveSelectedBackColor': { r: 20, g: 20, b: 20 },
+                'PropertyGridBaseBackColor': { r: -6, g: -5, b: -6 },
+                'TextBoxBackColor': { r: 0, g: -1, b: 0 }
+            }
+        },
+        {
+            label: 'Property Text',
+            baseName: 'PropertyGridCellForeColor',
+            associates: ['PropertyGridGroupForeColor', 'PropertyGridSelectedForeColor', 'PropertyGridInactiveSelectedForeColor'],
+            offsets: {
+                'PropertyGridGroupForeColor': { r: -6, g: -6, b: -6 },
+                'PropertyGridSelectedForeColor': { r: 24, g: 22, b: 12 },
+                'PropertyGridInactiveSelectedForeColor': { r: -40, g: -44, b: -52 }
+            }
+        },
+        {
+            label: 'Caption Bar',
+            baseName: 'CaptionBarBackColor',
+            associates: ['CaptionBarForeColor', 'CaptionBarSeachBoxBackColor', 'CaptionBarSeachBoxForeColor'],
+            offsets: {
+                'CaptionBarForeColor': { r: 140, g: 141, b: 140 },
+                'CaptionBarSeachBoxBackColor': { r: 18, g: 18, b: 18 },
+                'CaptionBarSeachBoxForeColor': { r: 170, g: 169, b: 170 }
+            }
+        },
+        {
+            label: 'List View',
+            baseName: 'ListViewBackColor',
+            associates: ['ListViewEvenRowBackColor', 'ListViewOddRowBackColor', 'ListViewColumnHeaderBackColor'],
+            offsets: {
+                'ListViewEvenRowBackColor': { r: -3, g: -3, b: -4 },
+                'ListViewOddRowBackColor': { r: 0, g: 1, b: 0 },
+                'ListViewColumnHeaderBackColor': { r: 29, g: 28, b: 29 }
+            }
+        },
+        {
+            label: 'Buttons',
+            baseName: 'ButtonHoverColor',
+            associates: ['ButtonPressedColor', 'ButtonBorderColor'],
+            offsets: {
+                'ButtonPressedColor': { r: 48, g: 48, b: 48 },
+                'ButtonBorderColor': { r: 32, g: 32, b: 32 }
+            }
+        },
+        {
+            label: 'Event Editor',
+            baseName: 'EventEditorPanelModeNormalEventBackColor',
+            associates: ['EventEditorPanelModeCommonEventBackColor', 'EventEditorCommandPanelColor', 'EventEditorCommandStartEndPanelColor'],
+            offsets: {
+                'EventEditorPanelModeCommonEventBackColor': { r: 0, g: 7, b: -7 },
+                'EventEditorCommandPanelColor': { r: 38, g: 37, b: 32 },
+                'EventEditorCommandStartEndPanelColor': { r: 38, g: 37, b: 32 }
+            }
+        },
+        {
+            label: 'Form Caption',
+            baseName: 'EditorFormCaptionBackColor',
+            associates: ['EditorFormCaptionForeColor', 'EditorFormStatusBarBackColor'],
+            offsets: {
+                'EditorFormCaptionForeColor': { r: 198, g: 199, b: 198 },
+                'EditorFormStatusBarBackColor': { r: 13, g: 13, b: 13 }
+            }
+        },
+        {
+            label: 'Master Menu',
+            baseName: 'MasterMenuBackColor',
+            associates: ['MasterMenuForeColor', 'MasterMenuSelectedColor'],
+            offsets: {
+                'MasterMenuForeColor': { r: 122, g: 127, b: 132 },
+                'MasterMenuSelectedColor': { r: -40, g: -86, b: -86 }
+            }
+        },
+        {
+            label: 'Other',
+            baseName: 'BlendGrayScaleImageColor',
+            associates: ['BlendButtonColor', 'BlendTransparentTileColor'],
+            offsets: {
+                'BlendButtonColor': { r: -99, g: -100, b: -99 },
+                'BlendTransparentTileColor': { r: -178, g: -178, b: -178 }
+            }
+        }
     ];
 
-    // Helper functions
+    // Utility functions
     function hexToRgb(hex) {
-        hex = hex.toUpperCase();
         return {
-            r: parseInt(hex.substring(0, 2), 16),
-            g: parseInt(hex.substring(2, 4), 16),
-            b: parseInt(hex.substring(4, 6), 16)
+            r: parseInt(hex.substr(0, 2), 16),
+            g: parseInt(hex.substr(2, 2), 16),
+            b: parseInt(hex.substr(4, 2), 16)
         };
     }
 
-    function rgbToHex(rgb, upperCase) {
+    function rgbToHex(rgb, upper) {
         let hex = ((rgb.r << 16) | (rgb.g << 8) | rgb.b).toString(16).padStart(6, '0');
-        return upperCase ? hex.toUpperCase() : hex.toLowerCase();
+        return upper ? hex.toUpperCase() : hex.toLowerCase();
     }
 
     function clamp(value, min, max) {
         return Math.min(Math.max(value, min), max);
     }
 
-    function invertHex(hex, upperCase) {
-        const rgb = hexToRgb(hex);
-        const inverted = {
-            r: 255 - rgb.r,
-            g: 255 - rgb.g,
-            b: 255 - rgb.b
-        };
-        return rgbToHex(inverted, upperCase);
+    function invertHex(hex, upper) {
+        hex = hex.toUpperCase();
+        let r = (255 - parseInt(hex.substr(0, 2), 16)).toString(16).padStart(2, '0');
+        let g = (255 - parseInt(hex.substr(2, 2), 16)).toString(16).padStart(2, '0');
+        let b = (255 - parseInt(hex.substr(4, 2), 16)).toString(16).padStart(2, '0');
+        let inv = r + g + b;
+        return upper ? inv.toUpperCase() : inv.toLowerCase();
     }
-
-    // Compute offsets for groups
-    groups.forEach(group => {
-        group.offsets = {};
-        const baseOriginalRgb = hexToRgb(nameToItem[group.baseName].originalColor);
-        group.associates.forEach(assoc => {
-            const assocRgb = hexToRgb(nameToItem[assoc].originalColor);
-            group.offsets[assoc] = {
-                r: assocRgb.r - baseOriginalRgb.r,
-                g: assocRgb.g - baseOriginalRgb.g,
-                b: assocRgb.b - baseOriginalRgb.b
-            };
-        });
-    });
 
     function updateEntryUI(item) {
         if (item.entrySwatch) {
